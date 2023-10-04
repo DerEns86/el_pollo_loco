@@ -4,14 +4,16 @@ class MovableObject {
     width = 100;
     height = 150;
     img;
+    speed = 0.15;
     imageCache = {};
+    currentImage = 0;
 
 
     loadImage(path) {
         this.img = new Image() // Image() ist eine vordefenierte Methode von JS ->this.img = document.getElementById('image') <img id= "image" src>
         this.img.src = path;
     }
-
+    
     loadImages(arr) {
         arr.forEach((path) => {
 
@@ -27,6 +29,10 @@ class MovableObject {
     }
 
     moveLeft() {
-
+        {
+            setInterval( () => {
+                this.x -= this.speed;
+            }, 1000 / 60);
+        }
     }
 }
