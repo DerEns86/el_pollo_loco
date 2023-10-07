@@ -61,8 +61,27 @@ class World {
             this.addToMap(obj);
         });
     }
-
+    /**
+     * Add the movableObjects to our map
+     * 
+     * @param {Object} movable - test
+     */
     addToMap(movable) {
+        if (movable.otherDirection) {
+            this.ctx.save();
+            this.ctx.translate(movable.width, 0);
+            this.ctx.scale(-1,1);
+            movable.x = movable.x * -1;
+        }
         this.ctx.drawImage(movable.img, movable.x, movable.y, movable.width, movable.height);
+
+        if (movable.otherDirection) {
+            movable.x = movable.x * -1;
+            this.ctx.restore();
+        }
+    }
+
+    flipImage(movable) {
+        
     }
 }
