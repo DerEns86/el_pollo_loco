@@ -50,6 +50,13 @@ class Character extends MovableObject {
                 this.otherDirection = true;
                 this.walking_sound.play();
             }
+
+            if (this.world.keyboard.UP && !this.isaboveGround()) {
+                this.speedY = 20;
+                console.log('up');
+            }
+
+
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
 
@@ -71,6 +78,6 @@ class Character extends MovableObject {
     }
 
     jump() {
-
+       
     }
 }
