@@ -1,12 +1,5 @@
-class MovableObject {
-    x = 80;
-    y = 200;
-    width = 100;
-    height = 150;
-    img;
+class MovableObject extends DrawableObject {
     speed = 0.15;
-    imageCache = {};
-    currentImage = 0;
     otherDirection = false;
     speedY = 0;
     acceleration = 1.5;
@@ -30,24 +23,7 @@ class MovableObject {
     }
 
 
-    loadImage(path) {
-        this.img = new Image() // Image() ist eine vordefenierte Methode von JS ->this.img = document.getElementById('image') <img id= "image" src>
-        this.img.src = path;
-    }
-
-    loadImages(arr) {
-        arr.forEach((path) => {
-
-
-            let img = new Image();
-            img.src = path;
-            this.imageCache[path] = img;
-        });
-    }
-
-    draw(ctx) {
-        ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-    }
+   
 
     moveRight() {
         this.x += this.speed;
@@ -92,15 +68,7 @@ class MovableObject {
         this.currentImage++;
     }
 
-    drawFrame(ctx) {
-        if (this instanceof Character || this instanceof Chicken || this instanceof Endboss) {
-            ctx.beginPath();
-            ctx.lineWidth = "4";
-            ctx.strokeStyle = "blue";
-            ctx.rect(this.x, this.y, this.width, this.height);
-            ctx.stroke();
-        }
-    }
+  
 
     isColliding(obj) {
         return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
