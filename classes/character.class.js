@@ -61,8 +61,10 @@ class Character extends MovableObject {
         }, 1000 / 60)
 
         setInterval(() => {
-
-            if (this.isaboveGround()) {
+            if (this.isDead()) {
+                console.log('Dead form characterclass')
+            }
+            else if (this.isaboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else {
 
