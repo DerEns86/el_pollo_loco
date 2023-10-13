@@ -30,23 +30,23 @@ class World {
         }, 100);
     }
 
-    checkThrowObject(){
+    checkThrowObject() {
         if (this.keyboard.B) {
-            let bottle = new ThrowableObject(this.character.x, this.character.y);
+            let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObjects.push(bottle);
-        
+
         }
     };
 
     checkCollisions() {
-        
-            this.level.enemies.forEach((enemy) => {
-                if (this.character.isColliding(enemy)) {
-                    this.character.hit();
-                    this.statusBar.setPercentage(this.character.energy);
-                }
-            });
-        
+
+        this.level.enemies.forEach((enemy) => {
+            if (this.character.isColliding(enemy)) {
+                this.character.hit();
+                this.statusBar.setPercentage(this.character.energy);
+            }
+        });
+
     }
 
     draw() {
@@ -63,14 +63,16 @@ class World {
         this.addObjectsToMap(this.level.clouds);
 
         this.addObjectsToMap(this.throwableObjects);
-
-        this.ctx.translate(-this.camera_x, 0);
         // draw statusbar
         // ---------space for fixed objects ----------
+        this.ctx.translate(-this.camera_x, 0);
+
         this.addToMap(this.statusBar);
         this.ctx.translate(this.camera_x, 0);
 
-
+        // ------------------------------------------
+        
+        
         this.ctx.translate(-this.camera_x, 0);
 
         // draw() wird immer wieder ausgeführt
