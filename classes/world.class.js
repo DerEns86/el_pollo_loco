@@ -35,6 +35,7 @@ class World {
         if (this.keyboard.B) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObjects.push(bottle);
+
         }
     };
 
@@ -46,6 +47,18 @@ class World {
                 this.statusBarLife.setPercentage(this.character.energy);
             }
         });
+
+        // ######################################mit chat gbt eingefügt
+
+        this.throwableObjects.forEach((throwableObject) => {
+            this.level.enemies.forEach((enemy, i) => {
+                if (throwableObject.isColliding(enemy)) {
+                    console.log('HIT');
+                    this.level.enemies.splice(i, 1);
+                }
+            });
+        });
+        // #########################################
     }
 
     draw() {
