@@ -10,6 +10,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
+    coins = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -18,10 +19,27 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.setCoins();
+       
+        
     }
 
     setWorld() {
         this.character.world = this;
+    }
+
+
+    setCoins(){
+        console.log('SetCoin');
+        // this.coins.push(new Coin(200, 50));
+        // this.coins.push(new Coin(150, 100));
+        // this.coins.push(new Coin(1000, 200));
+
+        for (let i = 0; i < 6; i++) {
+            const randomX = Math.random() * (this.level.level_end_x - 500);
+            const randomY = Math.random() * (canvas.height - 200);
+            this.coins.push(new Coin(randomX, randomY));
+        }
     }
 
     run() {
@@ -48,7 +66,7 @@ class World {
             }
         });
 
-        // ######################################mit chat gbt eingefügt
+        // #################collision with bottle#####################mit chat gbt eingefügt
 
         this.throwableObjects.forEach((throwableObject) => {
             this.level.enemies.forEach((enemy, i) => {
@@ -58,8 +76,20 @@ class World {
                 }
             });
         });
-        // #########################################
+        // ################collision with coin#########################
+
+        this.coins.forEach((coin, index) => {
+            if (this.character.isColliding(coin)) {
+                // Hier wird die Münze aufgesammelt
+                this.coins.splice(index, 1); // Entferne die Münze aus der Liste
+               // this.statusBarCoin.increment(); // Inkrementiere den Münzzähler im Statusbalken
+               console.log('Catch');
+            }
+        });
+        // ###########################################
     }
+
+    
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -73,6 +103,8 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         // draw clouds
         this.addObjectsToMap(this.level.clouds);
+
+        this.addObjectsToMap(this.coins);
 
         this.addObjectsToMap(this.throwableObjects);
         // draw statusbar
