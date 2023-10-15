@@ -11,6 +11,7 @@ class World {
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
     coins = [];
+    coinsCollected = [];
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -81,8 +82,13 @@ class World {
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
                 // Hier wird die Münze aufgesammelt
+                this.coinsCollected.push(coin);
+                // this.statusBarCoin.collectedCoins++;
+                this.statusBarCoin.setCollectedCoins();
+                console.log('coins from world:' + this.coinsCollected.length)
                 this.coins.splice(index, 1); // Entferne die Münze aus der Liste
                // this.statusBarCoin.increment(); // Inkrementiere den Münzzähler im Statusbalken
+               
                console.log('Catch');
             }
         });
