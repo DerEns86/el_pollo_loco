@@ -29,14 +29,17 @@ class World {
         this.character.world = this;
     }
 
+    test(){
+        console.log(this.statusBarCoin.percentage);
+        this.statusBarCoin.setCollectedCoins();
+        console.log(this.statusBarCoin.percentage);
+    }
+
 
     setCoins(){
-        console.log('SetCoin');
-        // this.coins.push(new Coin(200, 50));
-        // this.coins.push(new Coin(150, 100));
-        // this.coins.push(new Coin(1000, 200));
+       
 
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 5; i++) {
             const randomX = Math.random() * (this.level.level_end_x - 500);
             const randomY = Math.random() * (canvas.height - 200);
             this.coins.push(new Coin(randomX, randomY));
@@ -47,6 +50,7 @@ class World {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObject();
+            this.checkCollisionWithCoin();
         }, 100);
     }
 
@@ -77,22 +81,20 @@ class World {
                 }
             });
         });
-        // ################collision with coin#########################
-
+    }
+    
+    checkCollisionWithCoin(){
         this.coins.forEach((coin, index) => {
             if (this.character.isColliding(coin)) {
-                // Hier wird die Münze aufgesammelt
-                this.coinsCollected.push(coin);
-                // this.statusBarCoin.collectedCoins++;
+                
                 this.statusBarCoin.setCollectedCoins();
-                console.log('coins from world:' + this.coinsCollected.length)
-                this.coins.splice(index, 1); // Entferne die Münze aus der Liste
-               // this.statusBarCoin.increment(); // Inkrementiere den Münzzähler im Statusbalken
-               
-               console.log('Catch');
+                this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
+        
+                this.coins.splice(index, 1); 
+            
             }
         });
-        // ###########################################
+       
     }
 
     
