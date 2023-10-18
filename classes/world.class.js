@@ -157,6 +157,8 @@ class World {
         }
         movable.draw(this.ctx);
         movable.drawFrame(this.ctx);
+        movable.drawFrameYellow(this.ctx);
+        movable. drawFrameHitBox(this.ctx);
 
 
         if (movable.otherDirection) {
