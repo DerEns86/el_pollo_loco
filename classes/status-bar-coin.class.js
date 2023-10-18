@@ -23,10 +23,7 @@ class StatusBarCoin extends DrawableObject {
         this.y = 40;
     }
 
-    setCollectedCoins(){
-        this.percentage += 20;
-       
-    }
+  
 
     setPercentage(percentage) {
         this.percentage = percentage;

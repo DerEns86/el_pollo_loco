@@ -10,8 +10,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
-    // coins = [this.level.coins];
-    coinsCollected = [];
+   
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,7 +19,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        // this.setCoins(); //veraltet
+        
        this.test();
         
     }
@@ -36,15 +35,7 @@ class World {
     }
 
 
-    // setCoins(){
-       
-
-    //     for (let i = 0; i < 5; i++) {
-    //         const randomX = Math.random() * (this.level.level_end_x - 500);
-    //         const randomY = Math.random() * (canvas.height - 200);
-    //         this.coins.push(new Coin(randomX, randomY));
-    //     }
-    // }
+    
 
     run() {
         setInterval(() => {
@@ -85,19 +76,13 @@ class World {
     
     checkCollisionWithCoin(){
         this.level.coins.forEach((coin, index) => {
-            
-            
-            
+
             if (this.character.isColliding(coin)) {
-                console.log('collision with coin: ' + coin + index);
                 this.statusBarCoin.percentage += 20;
                 this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
-                // console.log(this.statusBarCoin.percentage);
                 this.level.coins.splice(index, 1); 
-            
             }
-        });
-       
+        }); 
     }
 
     
@@ -116,6 +101,8 @@ class World {
         this.addObjectsToMap(this.level.clouds);
         
         this.addObjectsToMap(this.level.coins);
+
+        this.addObjectsToMap(this.level.bottleOnGround);
         
         // this.addObjectsToMap(this.coins);
         
