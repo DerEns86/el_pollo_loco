@@ -10,8 +10,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
-    coins = [];
-    coinsCollected = [];
+   
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -20,8 +19,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        this.setCoins();
-       
+        
+       this.test();
         
     }
 
@@ -31,26 +30,19 @@ class World {
 
     test(){
         console.log(this.statusBarCoin.percentage);
-        this.statusBarCoin.setCollectedCoins();
+        console.log(this.level.coins);
         console.log(this.statusBarCoin.percentage);
     }
 
 
-    setCoins(){
-       
-
-        for (let i = 0; i < 5; i++) {
-            const randomX = Math.random() * (this.level.level_end_x - 500);
-            const randomY = Math.random() * (canvas.height - 200);
-            this.coins.push(new Coin(randomX, randomY));
-        }
-    }
+    
 
     run() {
         setInterval(() => {
             this.checkCollisions();
             this.checkThrowObject();
             this.checkCollisionWithCoin();
+            this.checkCollisionWithBottle();
         }, 100);
     }
 
@@ -84,17 +76,25 @@ class World {
     }
     
     checkCollisionWithCoin(){
-        this.coins.forEach((coin, index) => {
+        this.level.coins.forEach((coin, index) => {
+
             if (this.character.isColliding(coin)) {
-                
-                this.statusBarCoin.setCollectedCoins();
+                this.statusBarCoin.percentage += 20;
                 this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
-        
-                this.coins.splice(index, 1); 
-            
+                this.level.coins.splice(index, 1); 
             }
-        });
-       
+        }); 
+    }
+
+    checkCollisionWithBottle(){
+        this.level.bottleOnGround.forEach((bottle, index) => {
+
+            if (this.character.isColliding(bottle)) {
+                this.statusBarBottle.percentage += 20;
+                this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
+                this.level.bottleOnGround.splice(index, 1); 
+            }
+        }); 
     }
 
     
@@ -111,9 +111,13 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         // draw clouds
         this.addObjectsToMap(this.level.clouds);
+        
+        this.addObjectsToMap(this.level.coins);
 
-        this.addObjectsToMap(this.coins);
-
+        this.addObjectsToMap(this.level.bottleOnGround);
+        
+        // this.addObjectsToMap(this.coins);
+        
         this.addObjectsToMap(this.throwableObjects);
         // draw statusbar
         // ---------space for fixed objects ----------
