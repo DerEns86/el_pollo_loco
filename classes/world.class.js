@@ -90,9 +90,9 @@ class World {
             
             if (this.character.isColliding(coin)) {
                 console.log('collision with coin: ' + coin + index);
-            //     this.statusBarCoin.setCollectedCoins();
-            //     this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
-        
+                this.statusBarCoin.percentage += 20;
+                this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
+                // console.log(this.statusBarCoin.percentage);
                 this.level.coins.splice(index, 1); 
             
             }

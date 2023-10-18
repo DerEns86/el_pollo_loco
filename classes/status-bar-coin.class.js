@@ -1,6 +1,6 @@
 class StatusBarCoin extends DrawableObject {
    
- 
+    percentage = 0;
 
 
     IMAGES_COIN = [
