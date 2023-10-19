@@ -57,15 +57,15 @@ class World {
     checkCollisions() {
 
         this.level.enemies.forEach((enemy, i) => {
-            if (this.character.isaboveGround() && (this.character.x + this.character.width) >= this.level.enemies[i].x && (this.character.y + this.character.height) >= this.level.enemies[i].y){
-            // if (this.character.isaboveGround() && this.character.isColliding(enemy)) {
+            // if (this.character.isaboveGround() && (this.character.x + this.character.width) >= this.level.enemies[i].x && (this.character.y + this.character.height) >= this.level.enemies[i].y){
+            if (this.character.isaboveGround() && this.character.isColliding(enemy)) {
                 console.log('above' + this.character.y);
                 this.level.enemies[i].killed();
                 this.level.enemies.splice(i, 1);
 
             }
 
-            else if (this.character.isColliding(enemy)) {
+            else if (this.character.isColliding(enemy) && !this.character.isaboveGround()) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }

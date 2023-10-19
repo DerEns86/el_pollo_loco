@@ -8,6 +8,8 @@ class DrawableObject {
     imageCache = {};
     currentImage = 0;
 
+    onCollisionCourse = false;
+
     offset = {
         top: 0,
         bottom: 0,
