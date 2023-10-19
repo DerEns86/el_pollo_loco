@@ -10,7 +10,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
-   
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -19,23 +19,23 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        
-       this.test();
-        
+
+        this.test();
+
     }
 
     setWorld() {
         this.character.world = this;
     }
 
-    test(){
+    test() {
         console.log(this.statusBarCoin.percentage);
         console.log(this.level.coins);
         console.log(this.statusBarCoin.percentage);
     }
 
 
-    
+
 
     run() {
         setInterval(() => {
@@ -56,8 +56,16 @@ class World {
 
     checkCollisions() {
 
-        this.level.enemies.forEach((enemy) => {
-            if (this.character.isColliding(enemy)) {
+        this.level.enemies.forEach((enemy, i) => {
+            if (this.character.isaboveGround() && (this.character.x + this.character.width) >= this.level.enemies[i].x && (this.character.y + this.character.height) >= this.level.enemies[i].y){
+            // if (this.character.isaboveGround() && this.character.isColliding(enemy)) {
+                console.log('above' + this.character.y);
+                this.level.enemies[i].killed();
+                this.level.enemies.splice(i, 1);
+
+            }
+
+            else if (this.character.isColliding(enemy)) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
@@ -74,30 +82,31 @@ class World {
             });
         });
     }
-    
-    checkCollisionWithCoin(){
+
+    checkCollisionWithCoin() {
         this.level.coins.forEach((coin, index) => {
 
             if (this.character.isColliding(coin)) {
                 this.statusBarCoin.percentage += 20;
                 this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
-                this.level.coins.splice(index, 1); 
+                this.level.coins.splice(index, 1);
             }
-        }); 
+        });
     }
 
-    checkCollisionWithBottle(){
+    checkCollisionWithBottle() {
         this.level.bottleOnGround.forEach((bottle, index) => {
 
             if (this.character.isColliding(bottle)) {
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
-                this.level.bottleOnGround.splice(index, 1); 
+                this.level.bottleOnGround.splice(index, 1);
             }
-        }); 
+        });
     }
 
-    
+
+
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -111,13 +120,13 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         // draw clouds
         this.addObjectsToMap(this.level.clouds);
-        
+
         this.addObjectsToMap(this.level.coins);
 
         this.addObjectsToMap(this.level.bottleOnGround);
-        
+
         // this.addObjectsToMap(this.coins);
-        
+
         this.addObjectsToMap(this.throwableObjects);
         // draw statusbar
         // ---------space for fixed objects ----------
@@ -158,7 +167,7 @@ class World {
         movable.draw(this.ctx);
         movable.drawFrame(this.ctx);
         movable.drawFrameYellow(this.ctx);
-        movable. drawFrameHitBox(this.ctx);
+        movable.drawFrameHitBox(this.ctx);
 
 
         if (movable.otherDirection) {
