@@ -60,7 +60,7 @@ class World {
 
         this.level.enemies.forEach((enemy, i) => {
             // if (this.character.isaboveGround() && (this.character.x + this.character.width) >= this.level.enemies[i].x && (this.character.y + this.character.height) >= this.level.enemies[i].y){
-            if (this.character.isaboveGround() && this.character.isColliding(enemy)) {
+            if (this.character.isaboveGround() && this.character.isColliding(enemy) && !enemy.isDead) {
                 console.log('above' + this.character.y);
                 this.level.enemies[i].killed();
                 setTimeout(() => {
@@ -68,7 +68,7 @@ class World {
                 }, 1000);
             }
 
-            else if (this.character.isColliding(enemy) && !this.character.isaboveGround()) {
+            else if (this.character.isColliding(enemy) && !this.character.isaboveGround() && !enemy.isDead) {
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
