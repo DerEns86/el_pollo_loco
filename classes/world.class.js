@@ -10,6 +10,7 @@ class World {
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
     throwableObjects = [];
+    bottlesToThrow = 0;
 
 
     constructor(canvas, keyboard) {
@@ -48,13 +49,21 @@ class World {
         }, 100);
     }
 
+
     checkThrowObject() {
-        if (this.keyboard.B) {
+        if (this.keyboard.B && this.bottlesToThrow > 0) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObjects.push(bottle);
 
+            this.bottlesToThrow -= 1;
+
+            this.statusBarBottle.percentage -= 20;
+            this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
+
         }
-    };
+
+    }
+
 
     checkCollisions() {
 
@@ -103,6 +112,8 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
+                this.bottlesToThrow += 1;
+
                 this.level.bottleOnGround.splice(index, 1);
             }
         });
