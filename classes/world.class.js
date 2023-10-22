@@ -29,9 +29,11 @@ class World {
     }
 
     test() {
-        console.log(this.statusBarCoin.percentage);
-        console.log(this.level.coins);
-        console.log(this.statusBarCoin.percentage);
+        // console.log(this.statusBarCoin.percentage);
+        // console.log(this.level.coins);
+        // console.log(this.statusBarCoin.percentage);
+        console.log(this.character);
+
     }
 
 
@@ -61,8 +63,9 @@ class World {
             if (this.character.isaboveGround() && this.character.isColliding(enemy)) {
                 console.log('above' + this.character.y);
                 this.level.enemies[i].killed();
-                this.level.enemies.splice(i, 1);
-
+                setTimeout(() => {
+                    this.level.enemies.splice(i, 1);
+                }, 1000);
             }
 
             else if (this.character.isColliding(enemy) && !this.character.isaboveGround()) {
