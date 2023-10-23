@@ -2,6 +2,7 @@ class Character extends MovableObject {
     height = 200;
     y = 100;
     speed = 5;
+    bottlesToThrow;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -73,6 +74,12 @@ class Character extends MovableObject {
         this.offset.left = 30;
         this.offset.right = 60;
 
+        this.bottlesToThrow = 0;
+
+    }
+
+    setBottlesToThrow(amount) {
+        this.bottlesToThrow += amount;
     }
 
     animate() {
