@@ -42,6 +42,8 @@ class World {
             this.checkThrowObject();
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
+            this.checkBottleSplash();
+            
         }, 100);
     }
 
@@ -54,6 +56,7 @@ class World {
             // this.character.bottlesToThrow--;
             this.character.setBottlesToThrow(-1);
 
+           
 
             this.statusBarBottle.percentage -= 20;
             this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
@@ -68,7 +71,6 @@ class World {
         this.level.enemies.forEach((enemy, i) => {
             // if (this.character.isaboveGround() && (this.character.x + this.character.width) >= this.level.enemies[i].x && (this.character.y + this.character.height) >= this.level.enemies[i].y){
             if (this.character.isaboveGround() && this.character.isColliding(enemy) && !enemy.isDead) {
-                console.log('above' + this.character.y);
                 this.level.enemies[i].killed();
                 setTimeout(() => {
                     this.level.enemies.splice(i, 1);
@@ -117,8 +119,19 @@ class World {
             }
         });
     }
-
-
+    // ######### Auf die throwable Klasse zugreifen
+    
+    checkBottleSplash() {
+        this.throwableObjects.forEach(bottle => {
+            if (bottle.bottleToRemove > 0) {
+                setTimeout(() => {
+                this.throwableObjects.splice(0, 1);
+            }, 50);
+            bottle.bottleToRemove--;
+            }
+            
+        });
+    }
 
 
     draw() {

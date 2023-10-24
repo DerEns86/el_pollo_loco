@@ -26,6 +26,8 @@ class ThrowableObject extends MovableObject {
         this.height = 50;
         this.width = 60;
         this.throw();
+
+        this.bottleToRemove = 0;
     }
 
     throw() {
@@ -33,18 +35,28 @@ class ThrowableObject extends MovableObject {
         // bottle splicen
         this.speedY = 20;
         this.applyGravity();
-        
-            setInterval(() => {
-               
-               if (this.y <= 365) {
+
+        setInterval(() => {
+
+            if (this.y <= 365) {
                 this.x += 10;
                 this.playAnimation(this.IMAGES_ROTATE);
-             }else {
-            this.playAnimation(this.IMAGES_SPLASH);
-            this.y = 365;
-        }
-            
-            }, 50)
-       
+            } else {
+                // this.stopGravity();
+                this.splashBottle();
+
+                // this.y = 365;
+                // this.testThrow();
+            }
+
+        }, 50)
+
+    }
+
+    splashBottle() {
+        this.stopGravity();
+        this.bottleToRemove++;
+        this.playAnimation(this.IMAGES_SPLASH);
+        
     }
 }
