@@ -169,8 +169,8 @@ class World {
             this.flipImage(movable);
         }
         movable.draw(this.ctx);
-        movable.drawFrame(this.ctx);
-        movable.drawFrameYellow(this.ctx);
+        // movable.drawFrame(this.ctx);
+        // movable.drawFrameYellow(this.ctx);
         movable.drawFrameHitBox(this.ctx);
 
 
