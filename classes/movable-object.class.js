@@ -6,11 +6,12 @@ class MovableObject extends DrawableObject {
     offsetY = 0;
     energy = 100;
     lastHit = 0;
+    gravityInterval;
 
 
 
     applyGravity() {
-        setInterval(() => {
+      this.gravityInterval = setInterval(() => {
             if (this.isaboveGround() || this.speedY > 0) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
@@ -18,16 +19,20 @@ class MovableObject extends DrawableObject {
         }, 1000 / 25);
     }
 
+    stopGravity(){
+        clearInterval(this.gravityInterval);
+    }
+
     isaboveGround() {
-        if (this instanceof ThrowableObject){  // throwable Object should alway fall
+        if (this instanceof ThrowableObject) {  // throwable Object should alway fall
             return true
         } else {
-        return this.y < 230;
+            return this.y < 230;
         }
     }
 
 
-   
+
 
     moveRight() {
         this.x += this.speed;
@@ -49,7 +54,6 @@ class MovableObject extends DrawableObject {
         this.energy -= 5;
         if (this.energy < 0) {
             this.energy = 0;
-            // console.log('Dead');
         } else {
             this.lastHit = new Date().getTime();
         }
@@ -72,13 +76,12 @@ class MovableObject extends DrawableObject {
         this.currentImage++;
     }
 
-  
+
 
     isColliding(obj) {
-        return (this.x + this.width) >= obj.x && this.x <= (obj.x + obj.width) &&
-            (this.y + this.offsetY + this.height) >= obj.y &&
-            (this.y + this.offsetY) <= (obj.y + obj.height) //&& 
-        // obj.onCollisionCourse; // Optional: hiermit könnten wir schauen, ob ein Objekt sich in die richtige Richtung bewegt. Nur dann kollidieren wir. Nützlich bei Gegenständen, auf denen man stehen kann.
-
+        return (this.x + this.width) - this.offset.left >= (obj.x + obj.offset.left) &&
+            (this.x - this.offset.left) <= (obj.x + obj.width) &&
+            (this.y + this.offset.top + this.height - this.offset.bottom) >= obj.y &&
+            (this.y + this.offset.top) <= (obj.y + obj.height)
     }
 }
