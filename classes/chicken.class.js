@@ -52,7 +52,6 @@ class Chicken extends MovableObject {
 
     killed() {
         if (!this.isDead) {
-            console.log('killed');
             this.isDead = true;
             clearInterval(this.moveInterval);
         }

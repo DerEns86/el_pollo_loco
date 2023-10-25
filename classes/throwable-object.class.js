@@ -1,5 +1,8 @@
 class ThrowableObject extends MovableObject {
 
+    isCollided = false;
+
+
     IMAGES_ROTATE = [
         'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
         'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -31,31 +34,26 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-        // TODO abändern mit if-else. die playAnimation Splash stoppen oder die 
-        // bottle splicen
+
         this.speedY = 20;
         this.applyGravity();
 
-        setInterval(() => {
-
-            if (this.y <= 365) {
+        this.throwInterval = setInterval(() => {
+            if (!this.isCollided && this.isBottleAboveGround()) {
                 this.x += 10;
                 this.playAnimation(this.IMAGES_ROTATE);
             } else {
-                // this.stopGravity();
+                this.stopGravity();
                 this.splashBottle();
-
-                // this.y = 365;
-                // this.testThrow();
             }
+        }, 50);
+    }
 
-        }, 50)
-
+    isBottleAboveGround() {
+        return this.y < 360;
     }
 
     splashBottle() {
-        this.stopGravity();
-        this.bottleToRemove++;
         this.playAnimation(this.IMAGES_SPLASH);
         
     }

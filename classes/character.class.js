@@ -78,9 +78,6 @@ class Character extends MovableObject {
 
     }
 
-    setBottlesToThrow(amount) {
-        this.bottlesToThrow += amount;
-    }
 
     animate() {
 

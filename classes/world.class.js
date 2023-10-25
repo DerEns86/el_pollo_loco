@@ -42,7 +42,7 @@ class World {
             this.checkThrowObject();
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
-            this.checkBottleSplash();
+
             
         }, 100);
     }
@@ -52,12 +52,7 @@ class World {
         if (this.keyboard.B && this.character.bottlesToThrow > 0) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObjects.push(bottle);
-
-            // this.character.bottlesToThrow--;
-            this.character.setBottlesToThrow(-1);
-
-           
-
+            this.character.bottlesToThrow--;
             this.statusBarBottle.percentage -= 20;
             this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
 
@@ -69,7 +64,6 @@ class World {
     checkCollisions() {
 
         this.level.enemies.forEach((enemy, i) => {
-            // if (this.character.isaboveGround() && (this.character.x + this.character.width) >= this.level.enemies[i].x && (this.character.y + this.character.height) >= this.level.enemies[i].y){
             if (this.character.isaboveGround() && this.character.isColliding(enemy) && !enemy.isDead) {
                 this.level.enemies[i].killed();
                 setTimeout(() => {
@@ -83,12 +77,11 @@ class World {
             }
         });
 
-        // #################collision with bottle#####################mit chat gbt eingefügt
 
         this.throwableObjects.forEach((throwableObject) => {
             this.level.enemies.forEach((enemy, i) => {
                 if (throwableObject.isColliding(enemy)) {
-                    console.log('HIT');
+                    throwableObject.isCollided = true;
                     this.level.enemies.splice(i, 1);
                 }
             });
@@ -112,27 +105,12 @@ class World {
             if (this.character.isColliding(bottle)) {
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
-                // this.character.bottlesToThrow++;
-                this.character.setBottlesToThrow(1);
+                this.character.bottlesToThrow++;
 
                 this.level.bottleOnGround.splice(index, 1);
             }
         });
     }
-    // ######### Auf die throwable Klasse zugreifen
-    
-    checkBottleSplash() {
-        this.throwableObjects.forEach(bottle => {
-            if (bottle.bottleToRemove > 0) {
-                setTimeout(() => {
-                this.throwableObjects.splice(0, 1);
-            }, 50);
-            bottle.bottleToRemove--;
-            }
-            
-        });
-    }
-
 
     draw() {
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
