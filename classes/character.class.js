@@ -3,7 +3,6 @@ class Character extends MovableObject {
     y = 100;
     speed = 5;
     bottlesToThrow;
-    lastMove = 0;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -91,6 +90,8 @@ class Character extends MovableObject {
 
         this.bottlesToThrow = 0;
 
+        this.lastMove = new Date().getTime();
+
     }
 
 
@@ -101,21 +102,29 @@ class Character extends MovableObject {
             if (this.isMovingRight()) {
                 this.moveRight();
                 this.walking_sound.play();
+                this.lastMove = new Date().getTime();
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.isMovingLeft()) {
                 this.moveLeft();
 
                 this.walking_sound.play();
+
+                this.lastMove = new Date().getTime();
             }
 
-            if (this.world.keyboard.UP && !this.isaboveGround()) {
+            if (this.isJumping()) {
                 this.jump();
+
+                this.lastMove = new Date().getTime();
             }
 
-            this.lastMove = new Date().getTime();
+            
+            
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
+
+        
 
         setInterval(() => {
             if (this.isDead()) {
@@ -129,8 +138,11 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else {
-                this.playAnimation(this.IMAGES_IDLE);
-
+                if(this.isSleeping()) {
+                this.playAnimation(this.IMAGES_SLEEP);
+                }else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
             }
         }, 150);
     }
@@ -139,11 +151,22 @@ class Character extends MovableObject {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
 
+    isMovingLeft(){
+        return this.world.keyboard.LEFT && this.x > 0;
+    }
+
+    isJumping(){
+        return this.world.keyboard.UP && !this.isaboveGround();
+    }
+
+    isMoving() {
+        return this.isMovingLeft() || this.isMovingRight() || this.isJumping();
+    }
+
     isSleeping() {
         let timepassed = new Date().getTime() - this.lastMove; //difference in ms
         timepassed = timepassed / 1000;  //difference in seconds
-        console.log(timepassed);
-        return timepassed > 1;
+        return timepassed > 2;
     }
 
 
