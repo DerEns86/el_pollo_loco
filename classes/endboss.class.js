@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
     height = 400;
     width = 400;
     y= 50;
+    energy = 100;
 
     isDead = false;
     
