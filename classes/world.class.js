@@ -43,8 +43,8 @@ class World {
             this.checkThrowObject();
             this.checkCollisionWithCoin();
             this.checkCollisionWithBottle();
-this.checkCollisionBottleEnemy();
-this.checkCollisionBottleEndboss();
+            this.checkCollisionBottleEnemy();
+            this.checkCollisionBottleEndboss();
 
         }, 100);
     }
@@ -54,7 +54,7 @@ this.checkCollisionBottleEndboss();
         if (this.keyboard.B && this.character.bottlesToThrow > 0) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObjects.push(bottle);
-            
+
             this.character.bottlesToThrow--;
             this.statusBarBottle.percentage -= 20;
             this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
@@ -78,13 +78,14 @@ this.checkCollisionBottleEndboss();
                 this.character.hit();
                 this.statusBarLife.setPercentage(this.character.energy);
             }
-
-            else if (this.character.isColliding(this.endboss)) {
-                this.character.hit();
-                this.statusBarLife.setPercentage(this.character.energy);
-            }
         });
+        if (this.character.isColliding(this.endboss)) {
+            this.character.hit();
+            this.statusBarLife.setPercentage(this.character.energy);
+        }
     }
+
+
 
     checkCollisionBottleEnemy() {
         this.throwableObjects.forEach((throwableObject) => {
@@ -108,109 +109,109 @@ this.checkCollisionBottleEndboss();
 
 
 
-        checkCollisionWithCoin() {
-            this.level.coins.forEach((coin, index) => {
+    checkCollisionWithCoin() {
+        this.level.coins.forEach((coin, index) => {
 
-                if (this.character.isColliding(coin)) {
-                    this.statusBarCoin.percentage += 20;
-                    this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
-                    this.level.coins.splice(index, 1);
-                }
-            });
-        }
-
-        checkCollisionWithBottle() {
-            this.level.bottleOnGround.forEach((bottle, index) => {
-
-                if (this.character.isColliding(bottle)) {
-                    this.statusBarBottle.percentage += 20;
-                    this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
-                    this.character.bottlesToThrow++;
-
-                    this.level.bottleOnGround.splice(index, 1);
-                }
-            });
-        }
-
-        draw() {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-            this.ctx.translate(this.camera_x, 0);
-            // draw backgroundObject
-            this.addObjectsToMap(this.level.backgroundObjects);
-            // draw Character
-            this.addToMap(this.character);
-
-            this.addObjectsToMap(this.level.endboss);
-
-            // draw chicken
-            this.addObjectsToMap(this.level.enemies);
-            // draw clouds
-            this.addObjectsToMap(this.level.clouds);
-
-            this.addObjectsToMap(this.level.coins);
-
-            this.addObjectsToMap(this.level.bottleOnGround);
-
-            // this.addObjectsToMap(this.coins);
-
-            this.addObjectsToMap(this.throwableObjects);
-            // draw statusbar
-            // ---------space for fixed objects ----------
-            this.ctx.translate(-this.camera_x, 0);
-
-            this.addToMap(this.statusBarLife);
-            this.addToMap(this.statusBarBottle);
-            this.addToMap(this.statusBarCoin);
-            this.ctx.translate(this.camera_x, 0);
-
-            // ------------------------------------------
-
-
-            this.ctx.translate(-this.camera_x, 0);
-
-            // draw() wird immer wieder ausgeführt
-            let self = this;
-            requestAnimationFrame(function () {
-                self.draw();
-            });
-
-        }
-
-        addObjectsToMap(objects) {
-            objects.forEach(obj => {
-                this.addToMap(obj);
-            });
-        }
-        /**
-         * Add the movableObjects to our map
-         * 
-         * @param {Object} movable - test
-         */
-        addToMap(movable) {
-            if (movable.otherDirection) {
-                this.flipImage(movable);
+            if (this.character.isColliding(coin)) {
+                this.statusBarCoin.percentage += 20;
+                this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
+                this.level.coins.splice(index, 1);
             }
-            movable.draw(this.ctx);
-            // movable.drawFrame(this.ctx);
-            // movable.drawFrameYellow(this.ctx);
-            movable.drawFrameHitBox(this.ctx);
+        });
+    }
 
+    checkCollisionWithBottle() {
+        this.level.bottleOnGround.forEach((bottle, index) => {
 
-            if (movable.otherDirection) {
-                this.flipImageBack(movable);
+            if (this.character.isColliding(bottle)) {
+                this.statusBarBottle.percentage += 20;
+                this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
+                this.character.bottlesToThrow++;
+
+                this.level.bottleOnGround.splice(index, 1);
             }
-        }
+        });
+    }
 
-        flipImage(movable) {
-            this.ctx.save();
-            this.ctx.translate(movable.width, 0);
-            this.ctx.scale(-1, 1);
-            movable.x = movable.x * -1;
-        }
+    draw() {
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        flipImageBack(movable) {
-            movable.x = movable.x * -1;
-            this.ctx.restore();
+        this.ctx.translate(this.camera_x, 0);
+        // draw backgroundObject
+        this.addObjectsToMap(this.level.backgroundObjects);
+        // draw Character
+        this.addToMap(this.character);
+
+        this.addObjectsToMap(this.level.endboss);
+
+        // draw chicken
+        this.addObjectsToMap(this.level.enemies);
+        // draw clouds
+        this.addObjectsToMap(this.level.clouds);
+
+        this.addObjectsToMap(this.level.coins);
+
+        this.addObjectsToMap(this.level.bottleOnGround);
+
+        // this.addObjectsToMap(this.coins);
+
+        this.addObjectsToMap(this.throwableObjects);
+        // draw statusbar
+        // ---------space for fixed objects ----------
+        this.ctx.translate(-this.camera_x, 0);
+
+        this.addToMap(this.statusBarLife);
+        this.addToMap(this.statusBarBottle);
+        this.addToMap(this.statusBarCoin);
+        this.ctx.translate(this.camera_x, 0);
+
+        // ------------------------------------------
+
+
+        this.ctx.translate(-this.camera_x, 0);
+
+        // draw() wird immer wieder ausgeführt
+        let self = this;
+        requestAnimationFrame(function () {
+            self.draw();
+        });
+
+    }
+
+    addObjectsToMap(objects) {
+        objects.forEach(obj => {
+            this.addToMap(obj);
+        });
+    }
+    /**
+     * Add the movableObjects to our map
+     * 
+     * @param {Object} movable - test
+     */
+    addToMap(movable) {
+        if (movable.otherDirection) {
+            this.flipImage(movable);
+        }
+        movable.draw(this.ctx);
+        // movable.drawFrame(this.ctx);
+        // movable.drawFrameYellow(this.ctx);
+        movable.drawFrameHitBox(this.ctx);
+
+
+        if (movable.otherDirection) {
+            this.flipImageBack(movable);
         }
     }
+
+    flipImage(movable) {
+        this.ctx.save();
+        this.ctx.translate(movable.width, 0);
+        this.ctx.scale(-1, 1);
+        movable.x = movable.x * -1;
+    }
+
+    flipImageBack(movable) {
+        movable.x = movable.x * -1;
+        this.ctx.restore();
+    }
+}
