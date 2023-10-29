@@ -22,7 +22,7 @@ class World {
         this.setWorld();
         this.run();
 
-        this.test();
+        
 
     }
 
@@ -31,7 +31,9 @@ class World {
     }
 
     test() {
-
+        if (this.character.x > 1200) {
+            console.log('From world');
+        }
     }
 
 
@@ -45,6 +47,8 @@ class World {
             this.checkCollisionWithBottle();
             this.checkCollisionBottleEnemy();
             this.checkCollisionBottleEndboss();
+
+            this.test();  //Endboss wird ausgeführt
 
         }, 100);
     }
