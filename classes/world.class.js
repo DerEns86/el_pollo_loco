@@ -9,6 +9,7 @@ class World {
     statusBarLife = new StatusBarLife();
     statusBarCoin = new StatusBarCoin();
     statusBarBottle = new StatusBarBottle();
+    statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
     endboss = this.level.endboss[0];
 
@@ -107,6 +108,8 @@ class World {
             if (throwableObject.isColliding(this.endboss)) {
                 console.log('Hit Endboss');
                 throwableObject.isCollided = true;
+                this.endboss.hit();
+                this.statusBarLife.setPercentage(this.endboss.energy);
             }
         });
     }
@@ -155,6 +158,8 @@ class World {
 
         this.addObjectsToMap(this.level.coins);
 
+        this.addToMap(this.statusBarEndboss);
+
         this.addObjectsToMap(this.level.bottleOnGround);
 
         // this.addObjectsToMap(this.coins);
@@ -167,6 +172,7 @@ class World {
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
+        
         this.ctx.translate(this.camera_x, 0);
 
         // ------------------------------------------
