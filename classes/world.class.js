@@ -23,7 +23,7 @@ class World {
         this.setWorld();
         this.run();
 
-        
+
 
     }
 
@@ -36,6 +36,7 @@ class World {
             console.log('From world');
         }
     }
+
 
 
 
@@ -93,14 +94,24 @@ class World {
 
 
     checkCollisionBottleEnemy() {
-        this.throwableObjects.forEach((throwableObject) => {
-            this.level.enemies.forEach((enemy, i) => {
-                if (throwableObject.isColliding(enemy)) {
+        this.throwableObjects.forEach((throwableObject, i) => {
+            this.level.enemies.forEach((enemy, j) => {
+                if (throwableObject.isColliding(enemy) && !throwableObject.isCollided) {
                     throwableObject.isCollided = true;
-                    this.level.enemies.splice(i, 1);
+                    enemy.isDead = true;
+                    setTimeout(() => {
+                        if (enemy.isDead) {
+                            this.level.enemies.splice(j, 1);
+                        }
+                    }, 1000);
                 }
             });
         });
+    
+        // Entferne throwables, die kollidiert sind, nach einer Verzögerung von 50 Millisekunden
+        setTimeout(() => {
+            this.throwableObjects = this.throwableObjects.filter(throwableObject => !throwableObject.isCollided);
+        }, 50);
     }
 
     checkCollisionBottleEndboss() {
@@ -109,9 +120,13 @@ class World {
                 console.log('Hit Endboss');
                 throwableObject.isCollided = true;
                 this.endboss.hit();
-                this.statusBarLife.setPercentage(this.endboss.energy);
+                this.statusBarEndboss.setPercentage(this.endboss.energy);
             }
+           
         });
+        setTimeout(() => {
+            this.throwableObjects = this.throwableObjects.filter(throwableObject => !throwableObject.isCollided);
+        }, 50);
     }
 
 
@@ -172,7 +187,7 @@ class World {
         this.addToMap(this.statusBarLife);
         this.addToMap(this.statusBarBottle);
         this.addToMap(this.statusBarCoin);
-        
+
         this.ctx.translate(this.camera_x, 0);
 
         // ------------------------------------------
