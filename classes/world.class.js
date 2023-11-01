@@ -22,6 +22,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        
 
 
 
@@ -52,13 +53,13 @@ class World {
 
             this.test();  //Endboss wird ausgeführt
             this.activateEndboss();
-
+            this.removeCollidedBottles();
         }, 100);
     }
 
 
     checkThrowObject() {
-        if (this.keyboard.B && this.character.bottlesToThrow > 0) {
+        if (this.keyboard.B && this.character.bottlesToThrow > 0 && this.throwableObjects.length == 0) {
             let bottle = new ThrowableObject(this.character.x + 40, this.character.y + 100);
             this.throwableObjects.push(bottle);
 
@@ -108,11 +109,9 @@ class World {
                 }
             });
         });
-    
+
         // Entferne throwables, die kollidiert sind, nach einer Verzögerung von 50 Millisekunden
-        setTimeout(() => {
-            this.throwableObjects = this.throwableObjects.filter(throwableObject => !throwableObject.isCollided);
-        }, 50);
+        // this.removeCollidedBottles();
     }
 
     checkCollisionBottleEndboss() {
@@ -124,11 +123,9 @@ class World {
                 this.endboss.hit();
                 this.statusBarEndboss.setPercentage(this.endboss.energy);
             }
-           
+
         });
-        setTimeout(() => {
-            this.throwableObjects = this.throwableObjects.filter(throwableObject => !throwableObject.isCollided);
-        }, 50);
+        // this.removeCollidedBottles();
     }
 
 
@@ -157,10 +154,16 @@ class World {
         });
     }
 
+    removeCollidedBottles() {
+        setTimeout(() => {
+            this.throwableObjects = this.throwableObjects.filter(throwableObject => !throwableObject.isCollided);
+        }, 60);
+    }
+
     activateEndboss() {
         if (this.character.x > 1600) {
             this.endboss.readyToAttack = true;
-            
+
         }
     }
 
