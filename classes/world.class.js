@@ -51,6 +51,7 @@ class World {
             this.checkCollisionBottleEndboss();
 
             this.test();  //Endboss wird ausgeführt
+            this.activateEndboss();
 
         }, 100);
     }
@@ -117,8 +118,9 @@ class World {
     checkCollisionBottleEndboss() {
         this.throwableObjects.forEach((throwableObject) => {
             if (throwableObject.isColliding(this.endboss)) {
-                console.log('Hit Endboss');
+                // console.log('Hit Endboss');
                 throwableObject.isCollided = true;
+                this.endboss.isHurt();
                 this.endboss.hit();
                 this.statusBarEndboss.setPercentage(this.endboss.energy);
             }
@@ -153,6 +155,12 @@ class World {
                 this.level.bottleOnGround.splice(index, 1);
             }
         });
+    }
+
+    activateEndboss() {
+        if (this.character.x > 1600) {
+            this.endboss.readyToAttack = true;
+        }
     }
 
     draw() {
