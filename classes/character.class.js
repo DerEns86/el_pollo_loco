@@ -70,6 +70,7 @@ class Character extends MovableObject {
     world;
     //    audio einfügen
     walking_sound = new Audio('audio/walking.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
 
 
     constructor() {
@@ -114,6 +115,7 @@ class Character extends MovableObject {
 
             if (this.isJumping()) {
                 this.jump();
+                this.jumping_sound.play();
 
                 this.lastMove = new Date().getTime();
             }

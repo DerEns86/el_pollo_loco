@@ -160,6 +160,7 @@ class World {
     activateEndboss() {
         if (this.character.x > 1600) {
             this.endboss.readyToAttack = true;
+            
         }
     }
 

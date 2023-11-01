@@ -4,6 +4,7 @@ class Endboss extends MovableObject {
     width = 400;
     y = 50;
     energy = 100;
+    speed = 0.3;
 
     // isDead = false;
     readyToAttack = false;
@@ -63,7 +64,10 @@ class Endboss extends MovableObject {
     }
 
     animate() {
-        // this.moveLeft();
+        this.moveInterval = setInterval(() => {
+            this.moveLeft();
+            this.otherDirection = false;
+        }, 1000 / 60);
 
         setInterval(() => {
 
@@ -82,10 +86,16 @@ class Endboss extends MovableObject {
 
 
                 this.playAnimation(this.IMAGES_WALKING);
+                
 
             }
 
         }, 150);
+    }
+
+    moveLeft() {
+        this.x -= this.speed;
+        this.otherDirection = false;
     }
 
     hit() {
