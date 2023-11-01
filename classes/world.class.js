@@ -54,7 +54,7 @@ class World {
             this.test();  //Endboss wird ausgeführt
             this.activateEndboss();
             this.removeCollidedBottles();
-            this.setEndbossBar();
+            this.setEndbossBarInX();
         }, 100);
     }
 
@@ -161,14 +161,18 @@ class World {
         }, 60);
     }
 
+   //    Auf Fehler überprüfen, endboss rreagiert nicht richtig bei alarm
     activateEndboss() {
         if (this.character.x > 1600) {
-            this.endboss.readyToAttack = true;
-           
+            this.endboss.isAlarmed = true;
+        
+        } else if ((this.endboss.x - this.character.x) < 100){
+            this.endboss.isReadyToAttack = true;
+            console.log('Attack')
         }
     }
 
-    setEndbossBar(){
+    setEndbossBarInX(){
         this.statusBarEndboss.x = (this.endboss.getEndbossX() + 120);
     }
 
