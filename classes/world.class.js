@@ -54,6 +54,7 @@ class World {
             this.test();  //Endboss wird ausgeführt
             this.activateEndboss();
             this.removeCollidedBottles();
+            this.setEndbossBar();
         }, 100);
     }
 
@@ -163,8 +164,12 @@ class World {
     activateEndboss() {
         if (this.character.x > 1600) {
             this.endboss.readyToAttack = true;
-
+           
         }
+    }
+
+    setEndbossBar(){
+        this.statusBarEndboss.x = (this.endboss.getEndbossX() + 120);
     }
 
     draw() {

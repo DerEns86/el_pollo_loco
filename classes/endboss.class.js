@@ -61,6 +61,11 @@ class Endboss extends MovableObject {
         this.x = 2000;
         this.animate();
 
+        this.offset.top = 50;
+        this.offset.bottom = 110;
+        this.offset.left = 60;
+        this.offset.right = 120;
+
     }
 
     animate() {
@@ -86,7 +91,7 @@ class Endboss extends MovableObject {
 
 
                 this.playAnimation(this.IMAGES_WALKING);
-                
+
 
             }
 
@@ -113,5 +118,9 @@ class Endboss extends MovableObject {
             // clearInterval(this.moveInterval);
         }
 
+    }
+
+    getEndbossX() {
+        return this.x;
     }
 }
