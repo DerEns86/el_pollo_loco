@@ -22,7 +22,7 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-        
+
 
 
 
@@ -76,8 +76,9 @@ class World {
     checkCollisions() {
 
         this.level.enemies.forEach((enemy, i) => {
-            if (this.character.isaboveGround() && this.character.isColliding(enemy) && !enemy.isDead) {
+            if (this.character.isaboveGround() && this.character.isColliding(enemy) && !enemy.isDead && this.character.speedY <= 0) {
                 this.level.enemies[i].killed();
+                this.character.jump();
                 setTimeout(() => {
                     this.level.enemies.splice(i, 1);
                 }, 1000);
@@ -94,8 +95,6 @@ class World {
         }
     }
 
-
-
     checkCollisionBottleEnemy() {
         this.throwableObjects.forEach((throwableObject, i) => {
             this.level.enemies.forEach((enemy, j) => {
@@ -111,8 +110,7 @@ class World {
             });
         });
 
-        // Entferne throwables, die kollidiert sind, nach einer Verzögerung von 50 Millisekunden
-        // this.removeCollidedBottles();
+
     }
 
     checkCollisionBottleEndboss() {
@@ -161,18 +159,20 @@ class World {
         }, 60);
     }
 
-   //    Auf Fehler überprüfen, endboss rreagiert nicht richtig bei alarm
+    //    Auf Fehler überprüfen, endboss rreagiert nicht richtig bei alarm
     activateEndboss() {
         if (this.character.x > 1600) {
             this.endboss.isAlarmed = true;
-        
-        } else if ((this.endboss.x - this.character.x) < 100){
-            this.endboss.isReadyToAttack = true;
-            console.log('Attack')
+
+            if ((this.endboss.x - this.character.x) < 100 && this.endboss.isAlarmed) {
+                this.endboss.isReadyToAttack = true;
+                console.log('Attack')
+            }
+
         }
     }
 
-    setEndbossBarInX(){
+    setEndbossBarInX() {
         this.statusBarEndboss.x = (this.endboss.getEndbossX() + 120);
     }
 
