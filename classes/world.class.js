@@ -166,7 +166,8 @@ class World {
 
             if ((this.endboss.x - this.character.x) < 100 && this.endboss.isAlarmed) {
                 this.endboss.isReadyToAttack = true;
-                console.log('Attack')
+                // console.log('Attack');
+                // this.endboss.attack();
             }
 
         }

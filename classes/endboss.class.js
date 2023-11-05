@@ -5,6 +5,7 @@ class Endboss extends MovableObject {
     y = 50;
     energy = 100;
     speed = 0.1;
+    attackSpeed = 0.5;
 
     // isDead = false;
     isReadyToAttack = false;
@@ -71,12 +72,12 @@ class Endboss extends MovableObject {
 
     animate() {
 
-    
+
         this.moveInterval = setInterval(() => {
             this.moveLeft();
             this.otherDirection = false;
         }, 1000 / 60);
-    
+
 
         setInterval(() => {
 
@@ -90,7 +91,8 @@ class Endboss extends MovableObject {
 
             } else if (this.isReadyToAttack && this.isAlarmed) {
                 this.playAnimation(this.IMAGES_ATTACK);
-                this.clearInterval();
+                // this.clearInterval();
+                // this.attack();
 
             } else {
 
@@ -100,7 +102,7 @@ class Endboss extends MovableObject {
 
             }
 
-        }, 150);
+        }, 200);
     }
 
     moveLeft() {
@@ -117,6 +119,10 @@ class Endboss extends MovableObject {
         }
     }
 
+    // attack() {
+    //     this.x = this.x - 100;
+    // }
+
     killed() {
         if (!this.isDead) {
             this.isDead = true;
@@ -129,7 +135,7 @@ class Endboss extends MovableObject {
         return this.x;
     }
 
-    clearInterval(){
-    clearInterval(this.moveInterval);
+    clearInterval() {
+        clearInterval(this.moveInterval);
     }
 }
