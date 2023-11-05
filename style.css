@@ -21,3 +21,15 @@ body {
 canvas {
     background-color: black;
 }
+
+.mobileBtn {
+    position: relative;
+    bottom: 65px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.flex{
+    display: flex;
+    justify-content: space-between;
+}

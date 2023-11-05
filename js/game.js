@@ -8,6 +8,8 @@ function init() {
     world = new World(canvas, keyboard);
   
     console.log('My Character is', world.character);
+
+    addMobileBtn();
 }
 
 
@@ -57,3 +59,51 @@ document.addEventListener('keyup' , (event) => {
         keyboard.B = false;
     }
 });
+
+function addMobileBtn(){
+
+document.getElementById('btnLeft').addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.LEFT = true;
+});
+
+document.getElementById('btnLeft').addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.LEFT = false;
+});
+
+document.getElementById('btnRight').addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.RIGHT = true;
+});
+
+document.getElementById('btnRight').addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.RIGHT = false;
+});
+
+document.getElementById('btnJump').addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.UP = true;
+    // keyboard.RIGHT = true;
+});
+
+document.getElementById('btnJump').addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.UP = false;
+    // keyboard.RIGHT = false;
+});
+
+document.getElementById('btnBottle').addEventListener('touchstart', (event) => {
+    event.preventDefault();
+    keyboard.B = true;
+});
+
+document.getElementById('btnBottle').addEventListener('touchend', (event) => {
+    event.preventDefault();
+    keyboard.B = false;
+});
+
+
+
+}
