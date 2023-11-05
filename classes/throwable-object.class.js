@@ -45,8 +45,9 @@ class ThrowableObject extends MovableObject {
             } else {
                 this.stopGravity();
                 this.splashBottle();
+                this.isCollided = true;
             }
-        }, 50);
+        }, 60);
     }
 
     isBottleAboveGround() {

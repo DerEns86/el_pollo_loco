@@ -17,6 +17,19 @@ class Character extends MovableObject {
         'img/2_character_pepe/1_idle/idle/I-10.png',
     ];
 
+    IMAGES_SLEEP = [
+        'img/2_character_pepe/1_idle/long_idle/I-11.png',
+        'img/2_character_pepe/1_idle/long_idle/I-12.png',
+        'img/2_character_pepe/1_idle/long_idle/I-13.png',
+        'img/2_character_pepe/1_idle/long_idle/I-14.png',
+        'img/2_character_pepe/1_idle/long_idle/I-15.png',
+        'img/2_character_pepe/1_idle/long_idle/I-16.png',
+        'img/2_character_pepe/1_idle/long_idle/I-17.png',
+        'img/2_character_pepe/1_idle/long_idle/I-18.png',
+        'img/2_character_pepe/1_idle/long_idle/I-19.png',
+        'img/2_character_pepe/1_idle/long_idle/I-20.png'
+    ]
+
 
     IMAGES_WALKING = [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -57,11 +70,13 @@ class Character extends MovableObject {
     world;
     //    audio einfügen
     walking_sound = new Audio('audio/walking.mp3');
+    jumping_sound = new Audio('audio/jump.mp3');
 
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_SLEEP);
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_JUMPING);
         this.loadImages(this.IMAGES_DEAD);
@@ -76,6 +91,8 @@ class Character extends MovableObject {
 
         this.bottlesToThrow = 0;
 
+        this.lastMove = new Date().getTime();
+
     }
 
 
@@ -83,23 +100,33 @@ class Character extends MovableObject {
 
         setInterval(() => {
             this.walking_sound.pause();
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.isMovingRight()) {
                 this.moveRight();
                 this.walking_sound.play();
+                this.lastMove = new Date().getTime();
             }
-            if (this.world.keyboard.LEFT && this.x > 0) {
+            if (this.isMovingLeft()) {
                 this.moveLeft();
 
                 this.walking_sound.play();
+
+                this.lastMove = new Date().getTime();
             }
 
-            if (this.world.keyboard.UP && !this.isaboveGround()) {
+            if (this.isJumping()) {
                 this.jump();
+                this.jumping_sound.play();
+
+                this.lastMove = new Date().getTime();
             }
 
+            
+            
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
+
+        
 
         setInterval(() => {
             if (this.isDead()) {
@@ -113,9 +140,35 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else {
-                this.playAnimation(this.IMAGES_IDLE);
+                if(this.isSleeping()) {
+                this.playAnimation(this.IMAGES_SLEEP);
+                }else {
+                    this.playAnimation(this.IMAGES_IDLE);
+                }
             }
         }, 150);
+    }
+
+    isMovingRight() {
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+    }
+
+    isMovingLeft(){
+        return this.world.keyboard.LEFT && this.x > 0;
+    }
+
+    isJumping(){
+        return this.world.keyboard.UP && !this.isaboveGround();
+    }
+
+    isMoving() {
+        return this.isMovingLeft() || this.isMovingRight() || this.isJumping();
+    }
+
+    isSleeping() {
+        let timepassed = new Date().getTime() - this.lastMove; //difference in ms
+        timepassed = timepassed / 1000;  //difference in seconds
+        return timepassed > 2;
     }
 
 
