@@ -23,7 +23,7 @@ class World {
         this.setWorld();
         this.run();
 
-
+       
 
 
     }
@@ -33,8 +33,9 @@ class World {
     }
 
     test() {
+        debugger;
         if (this.character.x > 1200) {
-            console.log('From world');
+        document.getElementById('canvas').style.display = "none";
         }
     }
 
@@ -51,7 +52,7 @@ class World {
             this.checkCollisionBottleEnemy();
             this.checkCollisionBottleEndboss();
 
-            this.test();  //Endboss wird ausgeführt
+           
             this.activateEndboss();
             this.removeCollidedBottles();
             this.setEndbossBarInX();
