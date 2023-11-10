@@ -92,7 +92,7 @@ class Endboss extends MovableObject {
             } else if (this.isReadyToAttack && this.isAlarmed) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 // this.clearInterval();
-                // this.attack();
+                this.attack();
 
             } else {
 
@@ -119,9 +119,10 @@ class Endboss extends MovableObject {
         }
     }
 
-    // attack() {
-    //     this.x = this.x - 100;
-    // }
+    attack() {
+        this.jump();
+        this.x -= 30;
+    }
 
     killed() {
         if (!this.isDead) {

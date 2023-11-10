@@ -131,6 +131,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.characterIsDead();
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
@@ -169,6 +170,12 @@ class Character extends MovableObject {
         let timepassed = new Date().getTime() - this.lastMove; //difference in ms
         timepassed = timepassed / 1000;  //difference in seconds
         return timepassed > 2;
+    }
+
+    characterIsDead(){
+        if(this.isDead()) {
+            document.getElementById('lostScreen').classList.remove('d-none');
+        }
     }
 
 

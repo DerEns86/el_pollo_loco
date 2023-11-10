@@ -23,7 +23,7 @@ class World {
         this.setWorld();
         this.run();
 
-
+        this.test();
 
 
     }
@@ -33,8 +33,9 @@ class World {
     }
 
     test() {
-        if (this.character.x > 1200) {
-            console.log('From world');
+        if (this.character.isDead()) {
+            console.log('dead');
+            document.getElementById('canvas').innerHTML = "Tot";
         }
     }
 
