@@ -1,8 +1,7 @@
-
-@font-face{
+@font-face {
     font-family: "tequilla";
     src: url("./fonts/tequilla.ttf") format("truetype");
-  }
+}
 
 body {
     margin: 0;
@@ -45,7 +44,7 @@ canvas {
     margin-right: 15px;
 }
 
-.flex{
+.flex {
     display: flex;
     justify-content: space-between;
 }

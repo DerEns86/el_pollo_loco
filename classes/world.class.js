@@ -23,7 +23,7 @@ class World {
         this.setWorld();
         this.run();
 
-        this.test();
+       
 
 
     }
@@ -52,7 +52,7 @@ class World {
             this.checkCollisionBottleEnemy();
             this.checkCollisionBottleEndboss();
 
-            this.test();  //Endboss wird ausgeführt
+           
             this.activateEndboss();
             this.removeCollidedBottles();
             this.setEndbossBarInX();
