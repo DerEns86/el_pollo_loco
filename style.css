@@ -21,11 +21,30 @@ body {
     display: none;
 }
 
-.gameContent{
+.canvasDiv{
     position: relative;
+    height: 100%;
 }
 
-#lostScreen{
+.main{
+    position: relative;
+    height: 480px;
+    width: 720px;
+}
+
+.startBtn {
+    position: relative;
+    text-align: center;
+    top: 20px;
+    cursor: pointer;
+}
+.startBtn span {
+    padding: 8px;
+    background-color: orange;
+    border-radius: 16px;
+}
+
+.overlay{
     position: absolute;
     top: 0;
     right: 0;

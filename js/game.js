@@ -8,7 +8,9 @@ function init() {
     world = new World(canvas, keyboard);
   
     console.log('My Character is', world.character);
-
+    document.getElementById('canvasDiv').classList.remove('d-none');
+    document.getElementById('startScreen').classList.add('d-none');
+    
     addMobileBtn();
 }
 

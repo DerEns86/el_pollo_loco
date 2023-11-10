@@ -32,24 +32,34 @@
     <script src="js/game.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="">
 
     <h1>El Pollo Loco</h1>
-    <div class="gameContent ">
-        <canvas id="canvas" width="720" height="480"></canvas>
-        <div class="mobileBtn flex">
-            <div class="btnLeft">
-                <img id='btnLeft' src="./img/icons/left.png">
-                <img id='btnRight' src="./img/icons/right.png">
+    <div class="main">
+        <div id="canvasDiv" class="canvasDiv d-none">
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <div class="mobileBtn flex">
+                <div class="btnLeft">
+                    <img id='btnLeft' src="./img/icons/left.png">
+                    <img id='btnRight' src="./img/icons/right.png">
+                </div>
+                <div class="btnRight">
+                    <img id='btnJump' src="./img/icons/jump.png">
+                    <img id='btnBottle' src="./img/icons/bottle.png">
+                </div>
             </div>
-            <div class="btnRight">
-                <img id='btnJump' src="./img/icons/jump.png">
-                <img id='btnBottle' src="./img/icons/bottle.png">
+            <img id="lostScreen" class="d-none overlay" src="img/9_intro_outro_screens/game_over/you lost.png">
+        </div>
+        <div id="startScreen">
+
+            <img  class=" overlay" src="img/9_intro_outro_screens/start/startscreen_2.png">
+            <div class="startBtn" onclick="init()">
+                <span>Start Game</span>
             </div>
         </div>
-        
     </div>
-    <img id="lostScreen" class="d-none" src="img/9_intro_outro_screens/game_over/you lost.png" width="720" height="480">
+
+
     <div class="keyboardDescription">
         <p>Arrow Key Left, Right: Move <br>Key B : Throw bottle</p>
     </div>
