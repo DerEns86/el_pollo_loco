@@ -79,9 +79,12 @@ canvas {
 }
 
 
-@media (width < 800px) {
+/* @media (width < 800px) { */
 
-@media all and (orientation:portrait) {
+/* @media all and (orientation:portrait) { */
+  
+    @media (max-width: 800px) and (orientation: portrait) {
+  
     .turnDevice {
         display: block;
         text-align: center;
@@ -104,8 +107,8 @@ h1{
 }
 }
 
-}
-@media (width < 800px) {
+/* } */
+@media (width < 720px) {
 @media all and (orientation:landscape) {
     h1{
         display: none;
