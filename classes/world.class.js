@@ -12,7 +12,7 @@ class World {
     statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
     endboss = this.level.endboss[0];
-
+    
 
 
     constructor(canvas, keyboard) {
@@ -30,6 +30,7 @@ class World {
 
     setWorld() {
         this.character.world = this;
+        this.endboss.world = this;
     }
 
     test() {

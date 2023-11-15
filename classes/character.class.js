@@ -132,6 +132,7 @@ class Character extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.characterIsDead();
+                clearAllIntervals();
 
             } else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);

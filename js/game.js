@@ -14,6 +14,16 @@ function init() {
     addMobileBtn();
 }
 
+function startGame(){
+   
+    initGame();
+    init();
+}
+
+function clearAllIntervals() {
+    for (let i = 1; i < 9999; i++) window.clearInterval(i);
+  }
+
 
 
 document.addEventListener('keydown' , (event) => {
