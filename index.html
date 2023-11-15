@@ -57,16 +57,22 @@
                     <img id='btnBottle' src="./img/icons/bottle.png">
                 </div>
             </div>
-            <div>
-                
-                <img id="lostScreen" class="d-none overlay" src="img/9_intro_outro_screens/game_over/you lost.png">
+            <div id="lostScreen" class="d-none overlay">
+                <img src="img/9_intro_outro_screens/game_over/you lost.png">
+                <div class="wrapper">
+                    <div class="button" onclick="startGame()">
+                        <span>Restart</span>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="startScreen">
+        <div id="startScreen" class=" overlay">
 
-            <img class=" overlay" src="img/9_intro_outro_screens/start/startscreen_2.png">
-            <div class="startBtn" onclick="startGame()">
-                <span>Start Game</span>
+            <img src="img/9_intro_outro_screens/start/startscreen_2.png">
+            <div class="wrapper">
+                <div class="startBtn button" onclick="startGame()">
+                    <span>Start Game</span>
+                </div>
             </div>
         </div>
     </div>

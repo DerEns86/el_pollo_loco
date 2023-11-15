@@ -18,7 +18,7 @@ body {
 }
 
 .d-none{
-    display: none;
+    display: none !important;
 }
 
 .canvasDiv{
@@ -32,22 +32,29 @@ body {
     width: 720px;
 }
 
-.startBtn {
-    position: relative;
-    text-align: center;
-    top: 20px;
-    cursor: pointer;
-}
-.startBtn span {
-    padding: 8px;
-    background-color: orange;
-    border-radius: 16px;
-    border: 3px solid black;
-    box-shadow: 2px 5px 10px;
-    transition: background-color 2s ease-out 100ms
+.wrapper {
+    display: flex;
+    justify-content: center;
 }
 
-.startBtn span:hover {
+.button {
+    position: absolute;
+    /* text-align: center; */
+    top: 20px;
+    cursor: pointer;
+    
+}
+.button span {
+    padding: 8px;
+    /* background-color: orange; */
+    background-image: linear-gradient(rgb(255,211,15), rgb(255,164,0));
+    border-radius: 16px;
+    border: 2px solid black;
+    box-shadow: 2px 5px 10px;
+    transition: background-image 1s ease-out 100ms
+}
+
+.button span:hover {
     background-color: rgb(157, 103, 3);
 }
 
@@ -56,14 +63,19 @@ body {
     top: 0;
     right: 0;
     left: 0;
+    
+}
+
+.overlay img {
     width: 100%;
-    height: 100%;
+    height: 480px;
 }
 canvas {
     background-color: black;
 }
 
 .mobileBtn {
+    display: none !important;
     position: relative;
     bottom: 65px;
     margin-left: 15px;
@@ -123,6 +135,10 @@ h1{
     canvas{
         width: 100vw;
         height: 100vh;
+    }
+
+    .mobileBtn {
+        display: flex !important;
     }
 }
 }
