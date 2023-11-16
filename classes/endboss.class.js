@@ -83,7 +83,12 @@ class Endboss extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                clearAllIntervals();
+                this.gameOver();
+                setTimeout(() => {
+                    clearAllIntervals();
+                }, 1000 / 60);
+               
+                
             }
 
             else if (this.isHurt()) {
@@ -139,5 +144,11 @@ class Endboss extends MovableObject {
 
     clearInterval() {
         clearInterval(this.moveInterval);
+    }
+
+    gameOver(){
+        if(this.isDead()) {
+            document.getElementById('gameOverScreen').classList.remove('d-none');
+        }
     }
 }
