@@ -10,6 +10,7 @@ class Endboss extends MovableObject {
     // isDead = false;
     isReadyToAttack = false;
     isAlarmed = false;
+    hasAttacked = false;
 
     IMAGES_ALERT = [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -99,6 +100,9 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_ATTACK);
                 // this.clearInterval();
                 this.attack();
+                setTimeout(() => {
+                    this.isReadyToAttack = false;
+                }, 200);
 
             } else {
 
@@ -128,6 +132,12 @@ class Endboss extends MovableObject {
     attack() {
         this.jump();
         this.x -= 30;
+
+        
+
+        
+
+        
     }
 
     killed() {
