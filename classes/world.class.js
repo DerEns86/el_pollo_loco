@@ -102,6 +102,7 @@ class World {
             this.level.enemies.forEach((enemy, j) => {
                 if (throwableObject.isColliding(enemy) && !throwableObject.isCollided) {
                     throwableObject.isCollided = true;
+                    throwableObject.splash_sound.play();
                     enemy.isDead = true;
                     setTimeout(() => {
                         if (enemy.isDead) {
@@ -120,6 +121,7 @@ class World {
             if (throwableObject.isColliding(this.endboss)) {
                 // console.log('Hit Endboss');
                 throwableObject.isCollided = true;
+                throwableObject.splash_sound.play();
                 this.endboss.isHurt();
                 this.endboss.hit();
                 this.statusBarEndboss.setPercentage(this.endboss.energy);
