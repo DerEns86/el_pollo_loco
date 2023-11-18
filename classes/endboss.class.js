@@ -54,6 +54,9 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
 
+    sound_Endboss = new Audio('audio/chicken-endboss.mp3');
+    sound_isAlarmed = new Audio('audio/chicken-2.mp3');
+
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
         this.loadImages(this.IMAGES_WALKING);
@@ -63,6 +66,8 @@ class Endboss extends MovableObject {
         this.loadImages(this.IMAGES_DEAD);
         this.x = 2000;
         this.animate();
+
+        this.sound_Endboss.play();
 
         this.offset.top = 50;
         this.offset.bottom = 110;
@@ -130,6 +135,7 @@ class Endboss extends MovableObject {
     }
 
     attack() {
+        this.sound_isAlarmed.play();
         this.jump();
         this.x -= 30;
 

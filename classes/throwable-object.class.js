@@ -20,6 +20,7 @@ class ThrowableObject extends MovableObject {
     ]
 
     splash_sound = new Audio('audio/bottle-smash.mp3');
+    throw_sound = new Audio('audio/throw.mp3');
 
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
@@ -30,6 +31,8 @@ class ThrowableObject extends MovableObject {
         this.height = 50;
         this.width = 60;
         this.throw();
+
+        this.throw_sound.play();
 
         this.bottleToRemove = 0;
     }

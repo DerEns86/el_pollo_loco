@@ -71,6 +71,7 @@ class Character extends MovableObject {
     //    audio einfügen
     walking_sound = new Audio('audio/walking.mp3');
     jumping_sound = new Audio('audio/jump.mp3');
+    dead_sound = new Audio('audio/char-dead.mp3');
 
 
     constructor() {
@@ -131,6 +132,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
+                this.dead_sound.play();
                 this.characterIsDead();
                 clearAllIntervals();
 

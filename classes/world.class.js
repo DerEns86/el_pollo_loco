@@ -167,6 +167,7 @@ class World {
     activateEndboss() {
         if (this.character.x > 1600 || this.endboss.isAlarmed) {
             this.endboss.isAlarmed = true;
+            
 
             if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
                 this.endboss.isReadyToAttack = true;
