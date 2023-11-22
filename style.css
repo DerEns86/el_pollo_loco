@@ -125,7 +125,7 @@ h1{
 
 /* } */
 /* @media (width < 720px) { */
-@media (max-width: 1000px) and (orientation:landscape) {
+@media (max-width: 950px) and (orientation:landscape) {
     h1{
         display: none;
     }
