@@ -15,6 +15,7 @@ body {
     background-size: cover;
     height: 100vh;
     font-family: 'tequilla', Arial, Helvetica, sans-serif;
+   
 }
 
 .d-none{
@@ -92,6 +93,29 @@ canvas {
 }
 .turnDevice {
     display: none;
+}
+
+#muteBtn {
+    right: 10px;
+    top: 10px;
+}
+
+#settingsBtn {
+    right: 70px;
+    top: 10px;
+}
+
+.controlBtn {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    z-index: 99;
+    cursor: pointer;
+    background-image: linear-gradient(rgb(255,211,15), rgb(255,164,0));
+    border-radius: 16px;
+    border: 2px solid black;
+    box-shadow: 2px 0px 6px 0px rgb(0, 0, 0, 0.8);
+    box-sizing: border-box;
 }
 
 
