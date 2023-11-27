@@ -148,8 +148,12 @@ canvas {
 
 .keyboardDescription img {
     height: 50px;
-    width: 50px;
-    
+    width: 50px;   
+}
+
+.keyboardDescription div {
+   display: flex;
+   gap: 10px;
 }
 
 
