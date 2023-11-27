@@ -45,7 +45,7 @@
     <div class="main">
 
         <img id="muteBtn" class="controlBtn" src="img/icons/icon_mute.png" alt="">
-        <img id="settingsBtn" class="controlBtn" src="img/icons/icon_settings.png" alt="">
+        <img id="settingsBtn" class="controlBtn" src="img/icons/icon_settings.png" onclick="toggleSettings()">
 
         <div id="canvasDiv" class="canvasDiv d-none">
             <canvas id="canvas" width="720" height="480"></canvas>
@@ -85,11 +85,15 @@
                 </div>
             </div>
         </div>
+    
+
+
+    <div id="controls" class="keyboardDescription hidden">
+        <div><img src="./img/icons/left.png" ><img src="./img/icons/right.png" ><span>Move</span></div>
+        <img src="./img/icons/icon_up.png"><span>Jump</span>
+        <img src="./img/icons/icon_b.png"><span>Throw Bottle</span>
+        <!-- <p>Arrow Key Left, Right: Move <br>Key B : Throw bottle</p> -->
     </div>
-
-
-    <div class="keyboardDescription">
-        <p>Arrow Key Left, Right: Move <br>Key B : Throw bottle</p>
     </div>
 </body>
 

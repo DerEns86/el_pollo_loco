@@ -10,6 +10,7 @@ function init() {
     console.log('My Character is', world.character);
     document.getElementById('canvasDiv').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
+    document.getElementById('settingsBtn').classList.add('d-none');
     
     addMobileBtn();
 }
@@ -18,6 +19,11 @@ function startGame(){
    
     initGame();
     init();
+}
+
+function toggleSettings(){
+    let controls = document.getElementById('controls');
+    controls.classList.toggle('hidden');
 }
 
 function restartGame(){
