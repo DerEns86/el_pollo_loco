@@ -98,37 +98,13 @@ class Character extends MovableObject {
 
 
     animate() {
+        this.manageMovement();
+        this.animateCharacterState();
 
-        setInterval(() => {
-            this.walking_sound.pause();
-            if (this.isMovingRight()) {
-                this.moveRight();
-                this.walking_sound.play();
-                this.lastMove = new Date().getTime();
-            }
-            if (this.isMovingLeft()) {
-                this.moveLeft();
 
-                this.walking_sound.play();
+    }
 
-                this.lastMove = new Date().getTime();
-            }
-
-            if (this.isJumping()) {
-                this.jump();
-                this.jumping_sound.play();
-
-                this.lastMove = new Date().getTime();
-            }
-
-            
-            
-
-            this.world.camera_x = -this.x + 100;
-        }, 1000 / 60)
-
-        
-
+    animateCharacterState() {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
@@ -144,29 +120,60 @@ class Character extends MovableObject {
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else {
-                if(this.isSleeping()) {
-                this.playAnimation(this.IMAGES_SLEEP);
-                }else {
+                if (this.isSleeping()) {
+                    this.playAnimation(this.IMAGES_SLEEP);
+                } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
             }
         }, 150);
     }
 
-    isMovingRight() {
+    manageMovement() {
+        setInterval(() => {
+            this.walking_sound.pause();
+            if (this.canMoveRight()) {
+                this.moveRight();
+                this.walking_sound.play();
+                this.lastMove = new Date().getTime();
+            }
+            if (this.canMoveLeft()) {
+                this.moveLeft();
+
+                this.walking_sound.play();
+
+                this.lastMove = new Date().getTime();
+            }
+
+            if (this.canJump()) {
+                this.jump();
+                this.jumping_sound.play();
+
+                this.lastMove = new Date().getTime();
+            }
+
+
+
+
+            this.world.camera_x = -this.x + 100;
+        }, 1000 / 60)
+    }
+
+
+    canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
     }
 
-    isMovingLeft(){
+    canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
 
-    isJumping(){
+    canJump() {
         return this.world.keyboard.UP && !this.isaboveGround();
     }
 
     isMoving() {
-        return this.isMovingLeft() || this.isMovingRight() || this.isJumping();
+        return this.canMoveLeft() || this.canMoveRight() || this.canJump();
     }
 
     isSleeping() {
@@ -175,8 +182,8 @@ class Character extends MovableObject {
         return timepassed > 2;
     }
 
-    characterIsDead(){
-        if(this.isDead()) {
+    characterIsDead() {
+        if (this.isDead()) {
             document.getElementById('lostScreen').classList.remove('d-none');
         }
     }
