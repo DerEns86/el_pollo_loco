@@ -22,10 +22,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-
-       
-
-
     }
 
     setWorld() {
@@ -39,10 +35,6 @@ class World {
             document.getElementById('canvas').innerHTML = "Tot";
         }
     }
-
-
-
-
 
     run() {
         setInterval(() => {
@@ -167,7 +159,6 @@ class World {
     activateEndboss() {
         if (this.character.x > 1600 || this.endboss.isAlarmed) {
             this.endboss.isAlarmed = true;
-            
 
             if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
                 this.endboss.isReadyToAttack = true;
@@ -177,7 +168,6 @@ class World {
             } else {
                 this.endboss.isReadyToAttack = false;
             }
-
         }
     }
 
@@ -250,7 +240,8 @@ class World {
         movable.draw(this.ctx);
         // movable.drawFrame(this.ctx);
         // movable.drawFrameYellow(this.ctx);
-        movable.drawFrameHitBox(this.ctx);
+        // ####### remove later
+        // movable.drawFrameHitBox(this.ctx);
 
 
         if (movable.otherDirection) {

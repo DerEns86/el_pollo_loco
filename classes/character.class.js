@@ -100,9 +100,19 @@ class Character extends MovableObject {
     animate() {
         this.manageMovement();
         this.animateCharacterState();
-
-
     }
+
+    // ########### test audio
+    setSound(audiofile, bool){
+        // this.addSound(this.walking_sound);
+        audiofile.mute = bool;
+    }
+
+    toggleSound(){
+        this.setSound(this.walking_sound, true);
+    }
+
+    // ################################
 
     animateCharacterState() {
         setInterval(() => {
@@ -151,9 +161,6 @@ class Character extends MovableObject {
 
                 this.lastMove = new Date().getTime();
             }
-
-
-
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
