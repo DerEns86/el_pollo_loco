@@ -10,7 +10,7 @@ function init() {
     console.log('My Character is', world.character);
     document.getElementById('canvasDiv').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
-    document.getElementById('settingsBtn').classList.add('d-none');
+    // document.getElementById('settingsBtn').classList.add('d-none');
     
     addMobileBtn();
 }
@@ -33,7 +33,6 @@ function restartGame(){
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
   }
-
 
 
 document.addEventListener('keydown' , (event) => {
