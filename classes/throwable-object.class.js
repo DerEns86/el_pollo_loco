@@ -18,9 +18,10 @@ class ThrowableObject extends MovableObject {
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/5_bottle_splash.png',
         'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
     ]
-
-    splash_sound = new Audio('audio/bottle-smash.mp3');
-    throw_sound = new Audio('audio/throw.mp3');
+    sounds = {
+    splash_sound: new Audio('audio/bottle-smash.mp3'),
+    throw_sound: new Audio('audio/throw.mp3')
+    }
 
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
@@ -31,9 +32,9 @@ class ThrowableObject extends MovableObject {
         this.height = 50;
         this.width = 60;
         this.throw();
-
-        this.throw_sound.play();
-
+        if(!soundsMuted){
+        this.sounds.throw_sound.play();
+        }
         this.bottleToRemove = 0;
     }
 
@@ -66,7 +67,9 @@ class ThrowableObject extends MovableObject {
 
     splashBottle() {
         if(this.bottleToRemove == 1){
-        this.splash_sound.play();
+            if(!soundsMuted) {
+        this.sounds.splash_sound.play();
+            }
         this.playAnimation(this.IMAGES_SPLASH);
         }
         this.bottleToRemove == 0;

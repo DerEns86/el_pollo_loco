@@ -108,18 +108,6 @@ class Character extends MovableObject {
         this.animateCharacterState();
     }
 
-    // ########### test audio
-    setSound(audiofile, bool){
-        // this.addSound(this.walking_sound);
-        audiofile.mute = bool;
-    }
-
-    toggleSound(){
-        this.setSound(this.walking_sound, true);
-    }
-
-    // ################################
-
     animateCharacterState() {
         setInterval(() => {
             if (this.isDead()) {

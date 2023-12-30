@@ -53,9 +53,10 @@ class Endboss extends MovableObject {
         'img/4_enemie_boss_chicken/5_dead/G25.png',
         'img/4_enemie_boss_chicken/5_dead/G26.png',
     ];
-
-    sound_Endboss = new Audio('audio/chicken-endboss.mp3');
-    sound_isAlarmed = new Audio('audio/chicken-2.mp3');
+    sounds = {
+        sound_Endboss: new Audio('audio/chicken-endboss.mp3'),
+        sound_isAlarmed: new Audio('audio/chicken-2.mp3')
+    }
 
     constructor() {
         super().loadImage('img/4_enemie_boss_chicken/1_walk/G1.png');
@@ -67,7 +68,7 @@ class Endboss extends MovableObject {
         this.x = 2000;
         this.animate();
 
-        this.sound_Endboss.play();
+        // this.sounds.sound_Endboss.play();
 
         this.offset.top = 50;
         this.offset.bottom = 110;
@@ -93,8 +94,8 @@ class Endboss extends MovableObject {
                 setTimeout(() => {
                     clearAllIntervals();
                 }, 1000 / 60);
-               
-                
+
+
             }
 
             else if (this.isHurt()) {
@@ -135,10 +136,10 @@ class Endboss extends MovableObject {
     }
 
     attack() {
-        this.sound_isAlarmed.play();
+        this.sounds.sound_isAlarmed.play();
         this.jump();
         this.x -= 30;
-  
+
     }
 
     killed() {
@@ -157,8 +158,8 @@ class Endboss extends MovableObject {
         clearInterval(this.moveInterval);
     }
 
-    gameOver(){
-        if(this.isDead()) {
+    gameOver() {
+        if (this.isDead()) {
             document.getElementById('gameOverScreen').classList.remove('d-none');
         }
     }

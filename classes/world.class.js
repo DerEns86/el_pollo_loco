@@ -55,8 +55,20 @@ class World {
 
     muteAllSounds() {
         this.character.muteSounds();
-        // this.enemy.muteSounds();
-        // this.background.muteSounds();
+        this.level.enemies.forEach(enemy => {
+            // if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
+                enemy.muteSounds();
+            // }
+        });
+        this.endboss.muteSounds();
+
+        // if (this.this.character.bottlesToThrow > 0) {
+        //     this.level.throwableObjects.forEach(bottle => {
+        //         // if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
+        //             bottle.muteSounds();
+        //         // }
+        //     });
+        // }
         // this.ui.muteSounds();
         // Weitere Klassen hier hinzufügen...
     }
@@ -64,7 +76,20 @@ class World {
 
     unmuteAllSounds() {
         this.character.unmuteSounds();
-        // this.enemy.muteSounds();
+        this.level.enemies.forEach(enemy => {
+            if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
+                enemy.unmuteSounds();
+            }
+        });
+        this.endboss.unmuteSounds();
+
+    //     if (this.character.bottlesToThrow > 0) {
+    //     this.level.throwableObjects.forEach(bottle => {
+    //         // if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
+    //             bottle.unmuteSounds();
+    //         // }
+    //     });
+    // }
         // this.background.muteSounds();
         // this.ui.muteSounds();
         // Weitere Klassen hier hinzufügen...
@@ -137,7 +162,9 @@ class World {
             this.level.enemies.forEach((enemy, j) => {
                 if (throwableObject.isColliding(enemy) && !throwableObject.isCollided) {
                     throwableObject.isCollided = true;
-                    throwableObject.splash_sound.play();
+                    if(!this.soundsMuted){
+                    throwableObject.sounds.splash_sound.play();
+                    }
                     enemy.isDead = true;
                     setTimeout(() => {
                         if (enemy.isDead) {
@@ -156,7 +183,9 @@ class World {
             if (throwableObject.isColliding(this.endboss)) {
                 // console.log('Hit Endboss');
                 throwableObject.isCollided = true;
-                throwableObject.splash_sound.play();
+                if(!this.soundsMuted){
+                    throwableObject.sounds.splash_sound.play();
+                    }
                 this.endboss.isHurt();
                 this.endboss.hit();
                 this.statusBarEndboss.setPercentage(this.endboss.energy);
