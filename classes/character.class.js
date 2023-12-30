@@ -69,10 +69,16 @@ class Character extends MovableObject {
 
     world;
     //    audio einfügen
-    walking_sound = new Audio('audio/walking.mp3');
-    jumping_sound = new Audio('audio/jump.mp3');
-    dead_sound = new Audio('audio/char-dead.mp3');
+    // walking_sound = new Audio('audio/walking.mp3');
+    // jumping_sound = new Audio('audio/jump.mp3');
+    // dead_sound = new Audio('audio/char-dead.mp3');
 
+    sounds = {
+        walking_sound: new Audio('audio/walking.mp3'),
+        jumping_sound: new Audio('audio/jump.mp3'),
+        dead_sound: new Audio('audio/char-dead.mp3'),
+        
+    }
 
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
@@ -118,7 +124,7 @@ class Character extends MovableObject {
         setInterval(() => {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
-                this.dead_sound.play();
+                this.sounds.dead_sound.play();
                 this.characterIsDead();
                 clearAllIntervals();
 
@@ -141,25 +147,30 @@ class Character extends MovableObject {
 
     manageMovement() {
         setInterval(() => {
-            this.walking_sound.pause();
-            if (this.canMoveRight()) {
+            this.sounds.walking_sound.pause();
+            if (this.canMoveRight() ) {
                 this.moveRight();
-                this.walking_sound.play();
                 this.lastMove = new Date().getTime();
+                if (!this.isaboveGround()) {
+
+                
+                    this.sounds.walking_sound.play();
+                }
             }
             if (this.canMoveLeft()) {
                 this.moveLeft();
-
-                this.walking_sound.play();
-
                 this.lastMove = new Date().getTime();
+                if (!this.isaboveGround()) {
+
+                
+                this.sounds.walking_sound.play();
+            }
             }
 
             if (this.canJump()) {
                 this.jump();
-                this.jumping_sound.play();
-
                 this.lastMove = new Date().getTime();
+                this.sounds.jumping_sound.play();
             }
 
             this.world.camera_x = -this.x + 100;

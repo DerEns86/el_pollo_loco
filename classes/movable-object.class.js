@@ -34,6 +34,25 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    muteSounds() {
+        const soundKeys = Object.keys(this.sounds);
+    
+        for (const key of soundKeys) {
+            const sound = this.sounds[key];
+            sound.muted = true;
+            sound.pause();
+        }
+    }
+
+    unmuteSounds() {
+        const soundKeys = Object.keys(this.sounds);
+    
+        for (const key of soundKeys) {
+            const sound = this.sounds[key];
+            sound.muted = false; // Hier wird der muted-Zustand wieder auf false gesetzt
+            // sound.play(); // Hier kannst du den Sound gegebenenfalls wieder abspielen, wenn benötigt
+        }
+    }
 
 
 

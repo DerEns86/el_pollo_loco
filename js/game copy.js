@@ -2,11 +2,10 @@ let canvas;
 let ctx;
 let world;
 let keyboard = new Keyboard();
-let soundsMuted = false;
 
 function init() {
     canvas = document.getElementById('canvas');
-    world = new World(canvas, keyboard, soundsMuted);
+    world = new World(canvas, keyboard);
   
     console.log('My Character is', world.character);
     document.getElementById('canvasDiv').classList.remove('d-none');
@@ -21,24 +20,6 @@ function startGame(){
     initGame();
     init();
 }
-
-function toggleMuteAllSounds() {
-    const muteBtn = document.getElementById('muteBtn');
-    
-
-    if (soundsMuted) {
-        muteBtn.src = 'img/icons/icon_mute.png'; // Bildquelle, wenn stummgeschaltet
-    } else {
-        muteBtn.src = 'img/icons/icon_sound.png'; // Bildquelle, wenn nicht stummgeschaltet
-    }
-    soundsMuted = !soundsMuted;
-
-    if (world) {
-        world.toggleSoundMute();
-    }
-    
-}
-
 
 function toggleSettings(){
     let controls = document.getElementById('controls');

@@ -12,16 +12,23 @@ class World {
     statusBarEndboss = new StatusBarEndboss();
     throwableObjects = [];
     endboss = this.level.endboss[0];
+    sounds = [];
     
 
 
-    constructor(canvas, keyboard) {
+    constructor(canvas, keyboard, soundsMuted) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
         this.run();
+
+        this.soundsMuted = soundsMuted;
+
+        if (this.soundsMuted) {
+            this.muteAllSounds();
+        }
     }
 
     setWorld() {
@@ -35,6 +42,42 @@ class World {
             document.getElementById('canvas').innerHTML = "Tot";
         }
     }
+
+    toggleSoundMute() {
+        this.soundsMuted = !this.soundsMuted;
+
+        if (this.soundsMuted) {
+            this.muteAllSounds();
+        } else {
+            this.unmuteAllSounds(); 
+        }
+    }
+
+    muteAllSounds() {
+        this.character.muteSounds();
+        // this.enemy.muteSounds();
+        // this.background.muteSounds();
+        // this.ui.muteSounds();
+        // Weitere Klassen hier hinzufügen...
+    }
+
+
+    unmuteAllSounds() {
+        this.character.unmuteSounds();
+        // this.enemy.muteSounds();
+        // this.background.muteSounds();
+        // this.ui.muteSounds();
+        // Weitere Klassen hier hinzufügen...
+    }
+
+
+
+    toggleSettings(){
+        let controls = document.getElementById('controls');
+        controls.classList.toggle('hidden');
+    }
+    
+   
 
     run() {
         setInterval(() => {
