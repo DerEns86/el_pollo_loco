@@ -159,12 +159,10 @@ class World {
     activateEndboss() {
         if (this.character.x > 1600 || this.endboss.isAlarmed) {
             this.endboss.isAlarmed = true;
+            this.endboss.speed = this.endboss.attackSpeed;
 
             if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
-                this.endboss.isReadyToAttack = true;
-                // console.log('Attack');
-                // this.endboss.attack();
-             
+                this.endboss.isReadyToAttack = true;             
             } else {
                 this.endboss.isReadyToAttack = false;
             }

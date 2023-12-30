@@ -1,8 +1,8 @@
 class SmallChicken extends Chicken {
 
-    height = 60;
-    width = 60;
-    y = 365;
+    height = 40;
+    width = 40;
+    y = 385;
 
     IMAGES_WALKING = [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -22,7 +22,7 @@ class SmallChicken extends Chicken {
 
 
         this.animate();
-
+        this.offset.top = 10;
     }
 
 }
