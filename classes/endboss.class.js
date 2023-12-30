@@ -101,7 +101,7 @@ class Endboss extends MovableObject {
                 this.playAnimation(this.IMAGES_HURT);
                 console.log('hurt');
 
-            } else if (this.isReadyToAttack && this.isAlarmed) {
+            } else if (this.isReadyToAttack && this.isAlarmed && this.x >= this.world.character.x) {
                 this.playAnimation(this.IMAGES_ATTACK);
                 // this.clearInterval();
                 this.attack();
@@ -138,12 +138,7 @@ class Endboss extends MovableObject {
         this.sound_isAlarmed.play();
         this.jump();
         this.x -= 30;
-
-        
-
-        
-
-        
+  
     }
 
     killed() {

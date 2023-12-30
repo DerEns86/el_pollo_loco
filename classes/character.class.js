@@ -168,7 +168,7 @@ class Character extends MovableObject {
 
 
     canMoveRight() {
-        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x;
+        return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.x <= (this.world.endboss.x + 100);
     }
 
     canMoveLeft() {
