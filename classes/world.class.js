@@ -176,7 +176,9 @@ class World {
         this.level.coins.forEach((coin, index) => {
 
             if (this.character.isColliding(coin)) {
+                if(!this.soundsMuted){
                 this.level.coins[index].sounds.coin_collect.play();
+                }
                 this.statusBarCoin.percentage += 20;
                 this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
                 this.level.coins.splice(index, 1);
@@ -188,7 +190,9 @@ class World {
         this.level.bottleOnGround.forEach((bottle, index) => {
 
             if (this.character.isColliding(bottle)) {
+                if(!this.soundsMuted){
                 this.level.bottleOnGround[index].sounds.bottle_collect.play();
+                }
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
                 this.character.bottlesToThrow++;
