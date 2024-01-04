@@ -5,15 +5,9 @@ class Chicken extends MovableObject {
 
     isDead = false;
 
-    IMAGES_WALKING = [
-        'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
-        'img/3_enemies_chicken/chicken_normal/1_walk/2_w.png',
-        'img/3_enemies_chicken/chicken_normal/1_walk/3_w.png',
-    ];
+    IMAGES_WALKING = chickenImages.IMAGES_WALKING;
 
-    IMAGES_DEAD = [
-        'img/3_enemies_chicken/chicken_normal/2_dead/dead.png'
-    ];
+    IMAGES_DEAD = chickenImages.IMAGES_DEAD;
 
     sounds = {
         deadChicken_sound: new Audio('audio/chicken-dead.mp3'),

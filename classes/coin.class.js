@@ -3,10 +3,7 @@ class Coin extends MovableObject {
        width = 130;
      
 
-    IMAGES = [
-        'img/8_coin/coin_1.png',
-        'img/8_coin/coin_2.png'
-    ];
+    IMAGES = coinImages.COIN_IMAGES;
 
     sounds = {
         coin_collect: new Audio('audio/coin.mp3')
