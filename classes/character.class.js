@@ -3,6 +3,7 @@ class Character extends MovableObject {
     y = 100;
     speed = 5;
     bottlesToThrow;
+    hurtSoundPlayed = false;
 
     IMAGES_IDLE = [
         'img/2_character_pepe/1_idle/idle/I-1.png',
@@ -77,6 +78,8 @@ class Character extends MovableObject {
         walking_sound: new Audio('audio/walking.mp3'),
         jumping_sound: new Audio('audio/jump.mp3'),
         dead_sound: new Audio('audio/char-dead.mp3'),
+        hurt_sound: new Audio('audio/hurt.mp3'),
+        snoring_sound: new Audio('audio/snoring2.mp3')
         
     }
 
@@ -110,15 +113,19 @@ class Character extends MovableObject {
 
     animateCharacterState() {
         setInterval(() => {
+            this.sounds.snoring_sound.pause();
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD);
                 this.sounds.dead_sound.play();
                 this.characterIsDead();
                 clearAllIntervals();
 
-            } else if (this.isHurt()) {
+            } else if (this.isHurt() && !this.hurtSoundPlayed) {
                 this.playAnimation(this.IMAGES_HURT);
-            }
+                this.playHurtSound();
+                
+            } 
+            
             else if (this.isaboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
@@ -126,11 +133,12 @@ class Character extends MovableObject {
             } else {
                 if (this.isSleeping()) {
                     this.playAnimation(this.IMAGES_SLEEP);
+                    this.sounds.snoring_sound.play();
                 } else {
                     this.playAnimation(this.IMAGES_IDLE);
                 }
             }
-        }, 150);
+        }, 200);
     }
 
     manageMovement() {
@@ -163,6 +171,20 @@ class Character extends MovableObject {
 
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
+    }
+
+    playHurtSound(){
+        
+        if (!this.hurtSoundPlayed) {
+        this.sounds.hurt_sound.play();
+
+        setTimeout(() => {
+            this.sounds.hurt_sound.pause();
+            this.hurtSoundPlayed = false;
+        }, 200);
+
+        this.hurtSoundPlayed = true;
+    }
     }
 
 
