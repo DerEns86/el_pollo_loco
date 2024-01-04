@@ -28,12 +28,9 @@ class ThrowableObject extends MovableObject {
     }
 
     throw() {
-
         this.speedY = 20;
         this.applyGravity();
-        
         this.throwInterval = setInterval(() => {
-            
             if (!this.isCollided && this.isBottleAboveGround()) {
                 this.x += 10;
                 this.playAnimation(this.IMAGES_ROTATE);
@@ -42,17 +39,13 @@ class ThrowableObject extends MovableObject {
                 this.isCollided = true;
                 this.bottleToRemove++;
                 this.splashBottle();
-                
-               
             }
-        }, 60);
-        
+        }, 60);        
     }
 
     isBottleAboveGround() {
         return this.y < 360;
     }
-
 
     splashBottle() {
         if(this.bottleToRemove == 1){

@@ -1,4 +1,6 @@
-
+/**
+ * Represents a character object extending the functionality of a movable object.
+ */
 class Character extends MovableObject {
     height = 200;
     y = 100;
@@ -23,7 +25,9 @@ class Character extends MovableObject {
         snoring_sound: new Audio('audio/snoring2.mp3')
 
     }
-
+    /**
+    * Creates a character object with specific properties
+    */
     constructor() {
         super().loadImage('img/2_character_pepe/2_walk/W-21.png');
         this.loadImages(this.IMAGES_IDLE);
@@ -46,7 +50,10 @@ class Character extends MovableObject {
 
     }
 
-
+    /**
+    * Initiates the animation sequence for the character.
+    * Manages character movement and state animations.
+    */
     animate() {
         this.manageMovement();
         this.animateCharacterState();
@@ -114,48 +121,69 @@ class Character extends MovableObject {
         }, 1000 / 60)
     }
 
+    /**
+    * Plays the hurt sound if it hasn't been played recently.
+    * Prevents rapid consecutive plays using a timeout.
+    */
     playHurtSound() {
-
         if (!this.hurtSoundPlayed) {
             this.sounds.hurt_sound.play();
-
             setTimeout(() => {
                 this.sounds.hurt_sound.pause();
                 this.hurtSoundPlayed = false;
             }, 200);
-
             this.hurtSoundPlayed = true;
         }
     }
 
-
+    /**
+    * Checks if the character can move right based on keyboard input and position.
+    * @returns {boolean} Returns true if the character can move right; otherwise, returns false.
+    */
     canMoveRight() {
         return this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x && this.x <= (this.world.endboss.x + 100);
     }
 
+    /**
+    * Checks if the character can move left based on keyboard input and position.
+    * @returns {boolean} Returns true if the character can move left; otherwise, returns false.
+    */
     canMoveLeft() {
         return this.world.keyboard.LEFT && this.x > 0;
     }
 
+    /**
+    * Checks if the character can perform a jump based on keyboard input and position.
+    * @returns {boolean} Returns true if the character can jump; otherwise, returns false.
+    */
     canJump() {
         return this.world.keyboard.UP && !this.isaboveGround();
     }
 
+    /**
+    * Checks if the character is currently in motion.
+    * @returns {boolean} Returns true if the character is moving; otherwise, returns false.
+    */
     isMoving() {
         return this.canMoveLeft() || this.canMoveRight() || this.canJump();
     }
 
+    /**
+    * Checks if the character is in a sleeping state based on the time since the last move.
+    * @returns {boolean} Returns true if the character is sleeping; otherwise, returns false.
+    */
     isSleeping() {
         let timepassed = new Date().getTime() - this.lastMove; //difference in ms
         timepassed = timepassed / 1000;  //difference in seconds
         return timepassed > 2;
     }
 
+    /**
+    * Checks if the character is dead and updates the UI accordingly.
+    */
     characterIsDead() {
         if (this.isDead()) {
             document.getElementById('lostScreen').classList.remove('d-none');
         }
     }
-
-
 }

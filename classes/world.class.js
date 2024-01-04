@@ -1,3 +1,6 @@
+/**
+ * represents the game world containing various game elements and functionality
+ */
 class World {
 
     character = new Character();
@@ -15,7 +18,12 @@ class World {
     sounds = [];
 
 
-
+    /**
+     * Creates a game world with necessary elements and configurations.
+     * @param {HTMLCanvasElement} canvas - The canvas element for rendering.
+     * @param {Keyboard} keyboard - The keyboard input for the game.
+     * @param {boolean} soundsMuted - Indicates if game sounds are muted or not.
+     */
     constructor(canvas, keyboard, soundsMuted) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
