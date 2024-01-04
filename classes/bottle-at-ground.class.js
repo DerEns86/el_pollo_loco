@@ -2,7 +2,9 @@ class BottleOnGround extends DrawableObject {
     height = 60;
     width = 60;
 
-
+sounds = {
+    bottle_collect: new Audio('audio/bottle-collect.mp3')
+};
 
     constructor() {
         super();

@@ -20,11 +20,12 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.soundsMuted = soundsMuted;
         this.draw();
         this.setWorld();
         this.run();
 
-        this.soundsMuted = soundsMuted;
+        
 
         if (this.soundsMuted) {
             this.muteAllSounds();
@@ -56,21 +57,9 @@ class World {
     muteAllSounds() {
         this.character.muteSounds();
         this.level.enemies.forEach(enemy => {
-            // if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
                 enemy.muteSounds();
-            // }
         });
         this.endboss.muteSounds();
-
-        // if (this.this.character.bottlesToThrow > 0) {
-        //     this.level.throwableObjects.forEach(bottle => {
-        //         // if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
-        //             bottle.muteSounds();
-        //         // }
-        //     });
-        // }
-        // this.ui.muteSounds();
-        // Weitere Klassen hier hinzufügen...
     }
 
 
@@ -83,16 +72,6 @@ class World {
         });
         this.endboss.unmuteSounds();
 
-    //     if (this.character.bottlesToThrow > 0) {
-    //     this.level.throwableObjects.forEach(bottle => {
-    //         // if (enemy.muteSounds) { // Überprüfe, ob die Methode vorhanden ist, um Fehler zu vermeiden
-    //             bottle.unmuteSounds();
-    //         // }
-    //     });
-    // }
-        // this.background.muteSounds();
-        // this.ui.muteSounds();
-        // Weitere Klassen hier hinzufügen...
     }
 
 
@@ -174,8 +153,6 @@ class World {
                 }
             });
         });
-
-
     }
 
     checkCollisionBottleEndboss() {
@@ -190,9 +167,7 @@ class World {
                 this.endboss.hit();
                 this.statusBarEndboss.setPercentage(this.endboss.energy);
             }
-
         });
-        // this.removeCollidedBottles();
     }
 
 
@@ -201,6 +176,7 @@ class World {
         this.level.coins.forEach((coin, index) => {
 
             if (this.character.isColliding(coin)) {
+                this.level.coins[index].sounds.coin_collect.play();
                 this.statusBarCoin.percentage += 20;
                 this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
                 this.level.coins.splice(index, 1);
@@ -212,6 +188,7 @@ class World {
         this.level.bottleOnGround.forEach((bottle, index) => {
 
             if (this.character.isColliding(bottle)) {
+                this.level.bottleOnGround[index].sounds.bottle_collect.play();
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
                 this.character.bottlesToThrow++;
@@ -227,19 +204,20 @@ class World {
         }, 60);
     }
 
-    //    Auf Fehler überprüfen, endboss rreagiert nicht richtig bei alarm
     activateEndboss() {
-        if (this.character.x > 1600 || this.endboss.isAlarmed) {
+        if ((this.endboss.x - this.character.x) < 700 && !this.endboss.isAlarmed) {
             this.endboss.isAlarmed = true;
-            this.endboss.speed = this.endboss.attackSpeed;
-
-            if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
-                this.endboss.isReadyToAttack = true;             
+            this.endboss.speed = 0.5;
+            this.endboss.sounds.sound_Endboss.play();
+        }
+            else if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
+                this.endboss.isReadyToAttack = true; 
+                this.endboss.speed = this.endboss.attackSpeed;            
             } else {
                 this.endboss.isReadyToAttack = false;
             }
         }
-    }
+    
 
     setEndbossBarInX() {
         this.statusBarEndboss.x = (this.endboss.getEndbossX() + 120);

@@ -4,7 +4,7 @@ class Endboss extends MovableObject {
     width = 400;
     y = 50;
     energy = 100;
-    speed = 0.1;
+    speed = 0;
     attackSpeed = 0.5;
 
     // isDead = false;
@@ -100,7 +100,6 @@ class Endboss extends MovableObject {
 
             else if (this.isHurt()) {
                 this.playAnimation(this.IMAGES_HURT);
-                console.log('hurt');
 
             } else if (this.isReadyToAttack && this.isAlarmed && this.x >= this.world.character.x) {
                 this.playAnimation(this.IMAGES_ATTACK);
@@ -139,7 +138,6 @@ class Endboss extends MovableObject {
         this.sounds.sound_isAlarmed.play();
         this.jump();
         this.x -= 30;
-
     }
 
     killed() {
