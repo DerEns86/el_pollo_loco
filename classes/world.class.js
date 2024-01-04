@@ -86,8 +86,6 @@ class World {
             this.checkCollisionWithBottle();
             this.checkCollisionBottleEnemy();
             this.checkCollisionBottleEndboss();
-
-
             this.activateEndboss();
             this.removeCollidedBottles();
             this.setEndbossBarInX();
@@ -130,13 +128,11 @@ class World {
     }
 
     checkCollisionBottleEnemy() {
-        this.throwableObjects.forEach((throwableObject, i) => {
+        this.throwableObjects.forEach((throwableObject) => {
             this.level.enemies.forEach((enemy, j) => {
-                if (throwableObject.isColliding(enemy) && !throwableObject.isCollided) {
-                    throwableObject.isCollided = true;
-                        this.playSound(throwableObject.sounds.splash_sound);
-                    enemy.isDead = true;
-                    this.removeDeadEnemies(enemy, j)
+                if (this.isCollisionAndNotBroken(enemy, throwableObject)) {
+                    this.handleCollidedBottle(throwableObject);
+                    this.handleCollisionBottleWithEnemy(enemy, j)
                 }
             });
         });
@@ -146,16 +142,37 @@ class World {
     checkCollisionBottleEndboss() {
         this.throwableObjects.forEach((throwableObject) => {
             if (throwableObject.isColliding(this.endboss)) {
-                throwableObject.isCollided = true;
-                    this.playSound(throwableObject.sounds.splash_sound);
-                this.endboss.isHurt();
-                this.endboss.hit();
-                this.statusBarEndboss.setPercentage(this.endboss.energy);
+                this.handleCollidedBottle(throwableObject);
+                this.handleCollisionBottleWithEndboss();
             }
         });
     }
 
 
+
+
+    handleCollisionBottleWithEnemy(enemy, j) {
+        enemy.isDead = true;
+        this.removeDeadEnemies(enemy, j);
+    }
+
+    handleCollisionBottleWithEndboss() {
+        this.endboss.isHurt();
+        this.endboss.hit();
+        this.statusBarEndboss.setPercentage(this.endboss.energy);
+    }
+
+
+
+    isCollisionAndNotBroken(targetObject, throwableObject) {
+        return throwableObject.isColliding(targetObject) && !throwableObject.isCollided
+    }
+
+
+    handleCollidedBottle(throwableObject) {
+        throwableObject.isCollided = true;
+        this.playSound(throwableObject.sounds.splash_sound);
+    }
 
     checkCollisionWithCoin() {
         this.level.coins.forEach((coin, index) => {
