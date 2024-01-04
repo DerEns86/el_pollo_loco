@@ -13,7 +13,7 @@ class World {
     throwableObjects = [];
     endboss = this.level.endboss[0];
     sounds = [];
-    
+
 
 
     constructor(canvas, keyboard, soundsMuted) {
@@ -24,12 +24,8 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
+        this.setSoundsStatus();
 
-        
-
-        if (this.soundsMuted) {
-            this.muteAllSounds();
-        }
     }
 
     setWorld() {
@@ -37,10 +33,9 @@ class World {
         this.endboss.world = this;
     }
 
-    test() {
-        if (this.character.isDead()) {
-            console.log('dead');
-            document.getElementById('canvas').innerHTML = "Tot";
+    setSoundsStatus() {
+        if (this.soundsMuted) {
+            this.muteAllSounds();
         }
     }
 
@@ -50,14 +45,14 @@ class World {
         if (this.soundsMuted) {
             this.muteAllSounds();
         } else {
-            this.unmuteAllSounds(); 
+            this.unmuteAllSounds();
         }
     }
 
     muteAllSounds() {
         this.character.muteSounds();
         this.level.enemies.forEach(enemy => {
-                enemy.muteSounds();
+            enemy.muteSounds();
         });
         this.endboss.muteSounds();
     }
@@ -76,12 +71,12 @@ class World {
 
 
 
-    toggleSettings(){
+    toggleSettings() {
         let controls = document.getElementById('controls');
         controls.classList.toggle('hidden');
     }
-    
-   
+
+
 
     run() {
         setInterval(() => {
@@ -92,7 +87,7 @@ class World {
             this.checkCollisionBottleEnemy();
             this.checkCollisionBottleEndboss();
 
-           
+
             this.activateEndboss();
             this.removeCollidedBottles();
             this.setEndbossBarInX();
@@ -120,9 +115,7 @@ class World {
             if (this.character.isaboveGround() && this.character.isColliding(enemy) && !enemy.isDead && this.character.speedY <= 0) {
                 this.level.enemies[i].killed();
                 this.character.jump();
-                setTimeout(() => {
-                    this.level.enemies.splice(i, 1);
-                }, 1000);
+                this.removeDeadEnemies(enemy, i)
             }
 
             else if (this.character.isColliding(enemy) && !this.character.isaboveGround() && !enemy.isDead) {
@@ -141,28 +134,20 @@ class World {
             this.level.enemies.forEach((enemy, j) => {
                 if (throwableObject.isColliding(enemy) && !throwableObject.isCollided) {
                     throwableObject.isCollided = true;
-                    if(!this.soundsMuted){
-                    throwableObject.sounds.splash_sound.play();
-                    }
+                        this.playSound(throwableObject.sounds.splash_sound);
                     enemy.isDead = true;
-                    setTimeout(() => {
-                        if (enemy.isDead) {
-                            this.level.enemies.splice(j, 1);
-                        }
-                    }, 1000);
+                    this.removeDeadEnemies(enemy, j)
                 }
             });
         });
     }
 
+
     checkCollisionBottleEndboss() {
         this.throwableObjects.forEach((throwableObject) => {
             if (throwableObject.isColliding(this.endboss)) {
-                // console.log('Hit Endboss');
                 throwableObject.isCollided = true;
-                if(!this.soundsMuted){
-                    throwableObject.sounds.splash_sound.play();
-                    }
+                    this.playSound(throwableObject.sounds.splash_sound);
                 this.endboss.isHurt();
                 this.endboss.hit();
                 this.statusBarEndboss.setPercentage(this.endboss.energy);
@@ -174,11 +159,8 @@ class World {
 
     checkCollisionWithCoin() {
         this.level.coins.forEach((coin, index) => {
-
             if (this.character.isColliding(coin)) {
-                if(!this.soundsMuted){
-                this.level.coins[index].sounds.coin_collect.play();
-                }
+                this.playSound(this.level.coins[index].sounds.coin_collect);
                 this.statusBarCoin.percentage += 20;
                 this.statusBarCoin.setPercentage(this.statusBarCoin.percentage);
                 this.level.coins.splice(index, 1);
@@ -188,18 +170,19 @@ class World {
 
     checkCollisionWithBottle() {
         this.level.bottleOnGround.forEach((bottle, index) => {
-
             if (this.character.isColliding(bottle)) {
-                if(!this.soundsMuted){
-                this.level.bottleOnGround[index].sounds.bottle_collect.play();
-                }
+                this.playSound(this.level.bottleOnGround[index].sounds.bottle_collect);
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
                 this.character.bottlesToThrow++;
-
                 this.level.bottleOnGround.splice(index, 1);
             }
         });
+    }
+
+    playSound(sound) {
+        if (!this.soundsMuted)
+            sound.play();
     }
 
     removeCollidedBottles() {
@@ -208,20 +191,28 @@ class World {
         }, 60);
     }
 
+    removeDeadEnemies(enemy, index) {
+        setTimeout(() => {
+            if (enemy.isDead) {
+                this.level.enemies.splice(index, 1);
+            }
+        }, 1000);
+    }
+
     activateEndboss() {
         if ((this.endboss.x - this.character.x) < 700 && !this.endboss.isAlarmed) {
             this.endboss.isAlarmed = true;
             this.endboss.speed = 0.5;
             this.endboss.sounds.sound_Endboss.play();
         }
-            else if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
-                this.endboss.isReadyToAttack = true; 
-                this.endboss.speed = this.endboss.attackSpeed;            
-            } else {
-                this.endboss.isReadyToAttack = false;
-            }
+        else if ((this.endboss.x - this.character.x) < 200 && this.endboss.isAlarmed) {
+            this.endboss.isReadyToAttack = true;
+            this.endboss.speed = this.endboss.attackSpeed;
+        } else {
+            this.endboss.isReadyToAttack = false;
         }
-    
+    }
+
 
     setEndbossBarInX() {
         this.statusBarEndboss.x = (this.endboss.getEndbossX() + 120);
