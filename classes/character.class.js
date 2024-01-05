@@ -45,7 +45,6 @@ class Character extends MovableObject {
         this.offset.right = 60;
 
         this.bottlesToThrow = 0;
-
         this.lastMove = new Date().getTime();
 
     }
@@ -59,66 +58,101 @@ class Character extends MovableObject {
         this.animateCharacterState();
     }
 
+    /**
+    * Initiates the animation sequence based on the character's current state.
+    * Periodically checks the character's state and plays corresponding animations or actions.
+    */
     animateCharacterState() {
         setInterval(() => {
             this.sounds.snoring_sound.pause();
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD);
-                this.sounds.dead_sound.play();
-                this.characterIsDead();
-                clearAllIntervals();
-
+                this.handleDeadState();
             } else if (this.isHurt() && !this.hurtSoundPlayed) {
-                this.playAnimation(this.IMAGES_HURT);
-                this.playHurtSound();
-
-            }
-
-            else if (this.isaboveGround()) {
+                this.handleHurtState();
+            } else if (this.isaboveGround()) {
                 this.playAnimation(this.IMAGES_JUMPING);
             } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_WALKING);
             } else {
-                if (this.isSleeping()) {
-                    this.playAnimation(this.IMAGES_SLEEP);
-                    this.sounds.snoring_sound.play();
-                } else {
-                    this.playAnimation(this.IMAGES_IDLE);
-                }
+                this.handleSleepState();
             }
         }, 150);
     }
 
+    /**
+    * Manages the character's movement based on input and game conditions.
+    * Checks for movement possibilities and performs corresponding actions.
+    */
     manageMovement() {
         setInterval(() => {
             this.sounds.walking_sound.pause();
             if (this.canMoveRight()) {
                 this.moveRight();
-                this.lastMove = new Date().getTime();
-                if (!this.isaboveGround()) {
-
-
-                    this.sounds.walking_sound.play();
-                }
+                this.handleMovementInX();
             }
             if (this.canMoveLeft()) {
                 this.moveLeft();
-                this.lastMove = new Date().getTime();
-                if (!this.isaboveGround()) {
-
-
-                    this.sounds.walking_sound.play();
-                }
+                this.handleMovementInX();
             }
-
             if (this.canJump()) {
                 this.jump();
-                this.lastMove = new Date().getTime();
-                this.sounds.jumping_sound.play();
+                this.handleJump();
             }
-
             this.world.camera_x = -this.x + 100;
         }, 1000 / 60)
+    }
+
+    /**
+    * Handles actions when the character jumps.
+    * Updates the timestamp of the last movement and plays the jumping sound.
+    */
+    handleJump() {
+        this.lastMove = new Date().getTime();
+        this.sounds.jumping_sound.play();
+    }
+
+    /**
+    * Handles actions related to character movement in the horizontal (X) direction.
+    * Updates the timestamp of the last movement and plays the walking sound if the character is not above ground.
+    */
+    handleMovementInX() {
+        this.lastMove = new Date().getTime();
+        if (!this.isaboveGround()) {
+            this.sounds.walking_sound.play();
+        }
+    }
+
+    /**
+    * Handles actions for the character's sleep state.
+    * Plays corresponding animations and sound effects based on the character's sleep status.
+    */
+    handleSleepState() {
+        if (this.isSleeping()) {
+            this.playAnimation(this.IMAGES_SLEEP);
+            this.sounds.snoring_sound.play();
+        } else {
+            this.playAnimation(this.IMAGES_IDLE);
+        }
+    }
+
+    /**
+    * Handles actions for the character's hurt state.
+    * Initiates the hurt animation and sound effect for the character.
+    */
+    handleHurtState() {
+        this.playAnimation(this.IMAGES_HURT);
+        this.playHurtSound();
+    }
+
+    /**
+    * Handles actions for the character's dead state.
+    * Initiates the dead animation, plays the dead sound, handles character death UI, and clears all intervals.
+    */
+    handleDeadState() {
+        this.playAnimation(this.IMAGES_DEAD);
+        this.sounds.dead_sound.play();
+        this.characterIsDead();
+        clearAllIntervals();
     }
 
     /**
