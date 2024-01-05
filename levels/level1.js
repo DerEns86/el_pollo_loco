@@ -1,7 +1,16 @@
+/**
+ * Represents a game level with various game elements.
+ */
 let level1;
 
+/**
+ * Initializes the game and sets up the first level.
+ */
 function initGame(){
 
+/**
+ * creates arrays for the 1st level
+ */
 level1= new Level([
     new Chicken(),
     new Chicken(),

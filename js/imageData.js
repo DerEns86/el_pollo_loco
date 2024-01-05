@@ -1,3 +1,11 @@
+/**
+ * Contains image paths for all animated characters in the game
+ */
+
+
+/**
+ * Contains image paths fortthe characters different states
+ */
 const characterImages = {
     IMAGES_WALKING : [
         'img/2_character_pepe/2_walk/W-21.png',
@@ -61,6 +69,9 @@ const characterImages = {
     ]
 };
 
+/**
+ * Contains image paths for the chickens different states
+ */
 const chickenImages = {
     IMAGES_WALKING: [
         'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',
@@ -73,6 +84,9 @@ const chickenImages = {
     ]
 };
 
+/**
+ * Contains image paths for the small chickens different states
+ */
 const smallChickenImages = {
     IMAGES_WALKING: [
         'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -85,6 +99,9 @@ const smallChickenImages = {
     ]
 };
 
+/**
+ * contains image paths for the coins
+ */
 const coinImages = {
     COIN_IMAGES: [
         'img/8_coin/coin_1.png',
@@ -92,6 +109,9 @@ const coinImages = {
     ]
 };
 
+/**
+ * Contains image paths for the bottles different states
+ */
 const bottleImages = {
     
     IMAGES_ROTATE: [
@@ -111,7 +131,9 @@ const bottleImages = {
     ]
 }
 
-
+/**
+ * Contains image paths for the endboss's different states
+ */
 const endbossImages = {
     IMAGES_ALERT: [
         'img/4_enemie_boss_chicken/2_alert/G5.png',
@@ -156,6 +178,9 @@ const endbossImages = {
     ]
 };
 
+/**
+ * contains image paths for the bottle statusbar
+ */
 const statusbarBottleImages = {
     IMAGES_BOTTLE: [
         'img/7_statusbars/1_statusbar/3_statusbar_bottle/green/0.png',
@@ -167,6 +192,9 @@ const statusbarBottleImages = {
     ]
 }
 
+/**
+ * contains image paths for the coin statusbar
+ */
 const statusbarCoinImages = {
     IMAGES_COIN: [
         'img/7_statusbars/1_statusbar/1_statusbar_coin/green/0.png',
@@ -178,6 +206,9 @@ const statusbarCoinImages = {
     ]
 }
 
+/**
+ * contains image paths for the enboss health statusbar
+ */
 const statusbarEndbossImages = {
     IMAGES_HEALTH: [
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
@@ -189,6 +220,9 @@ const statusbarEndbossImages = {
     ]
 }
 
+/**
+ * contains image paths for the character health statusbar
+ */
 const statusbarHealthImages = {
     IMAGES_HEALTH: [
         'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',

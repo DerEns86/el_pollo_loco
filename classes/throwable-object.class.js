@@ -1,17 +1,22 @@
+/**
+* Represents an object that can be thrown and collide with the environment.
+*/
 class ThrowableObject extends MovableObject {
 
     isCollided = false;
-
-
     IMAGES_ROTATE = bottleImages.IMAGES_ROTATE;
-
     IMAGES_SPLASH = bottleImages.IMAGES_SPLASH;
-
+    
     sounds = {
     splash_sound: new Audio('audio/bottle-smash.mp3'),
     throw_sound: new Audio('audio/throw.mp3')
     }
 
+    /**
+    * Initializes a ThrowableObject instance.
+    * @param {number} x - The x-coordinate position.
+    * @param {number} y - The y-coordinate position.
+    */
     constructor(x, y) {
         super().loadImage('img/6_salsa_bottle/salsa_bottle.png');
         this.loadImages(this.IMAGES_ROTATE);
@@ -27,6 +32,9 @@ class ThrowableObject extends MovableObject {
         this.bottleToRemove = 0;
     }
 
+    /**
+    * Throws the object and initiates animation and collision detection.
+    */
     throw() {
         this.speedY = 20;
         this.applyGravity();
@@ -43,10 +51,18 @@ class ThrowableObject extends MovableObject {
         }, 60);        
     }
 
+    /**
+    * Checks if the bottle is above the ground.
+    * @returns {boolean} Indicates if the bottle is above the ground.
+    */
     isBottleAboveGround() {
         return this.y < 360;
     }
 
+    /**
+    * Checks if the bottle is above the ground.
+    * @returns {boolean} Indicates if the bottle is above the ground.
+    */
     splashBottle() {
         if(this.bottleToRemove == 1){
             if(!soundsMuted) {

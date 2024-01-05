@@ -4,58 +4,71 @@ let world;
 let keyboard = new Keyboard();
 let soundsMuted = false;
 
+/**
+* Initializes the game by setting up the canvas, creating the world instance, and initializing the game interface.
+*/
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard, soundsMuted);
-  
-    console.log('My Character is', world.character);
+
     document.getElementById('canvasDiv').classList.remove('d-none');
     document.getElementById('startScreen').classList.add('d-none');
-    // document.getElementById('settingsBtn').classList.add('d-none');
-    
+
     addMobileBtn();
 }
 
-function startGame(){
-   
+/**
+* Starts the game by initializing the game and setting up the environment.
+*/
+function startGame() {
     initGame();
     init();
 }
 
+/**
+* Toggles the mute state of all sounds in the game and updates the mute button image.
+*/
 function toggleMuteAllSounds() {
     const muteBtn = document.getElementById('muteBtn');
-    
-
     if (soundsMuted) {
-        muteBtn.src = 'img/icons/icon_mute.png'; // Bildquelle, wenn stummgeschaltet
+        muteBtn.src = 'img/icons/icon_mute.png';
     } else {
-        muteBtn.src = 'img/icons/icon_sound.png'; // Bildquelle, wenn nicht stummgeschaltet
+        muteBtn.src = 'img/icons/icon_sound.png';
     }
     soundsMuted = !soundsMuted;
-
     if (world) {
         world.toggleSoundMute();
     }
-    
 }
 
-
-function toggleSettings(){
+/**
+* Toggles the visibility of settings by toggling the 'hidden' class on the 'controls' element.
+*/
+function toggleSettings() {
     let controls = document.getElementById('controls');
     controls.classList.toggle('hidden');
 }
 
-function restartGame(){
+/**
+* Reloads the current page to restart the game.
+*/
+function restartGame() {
     location.reload();
 }
 
+/**
+* Clears all intervals running in the window context.
+*/
 function clearAllIntervals() {
     for (let i = 1; i < 9999; i++) window.clearInterval(i);
-  }
+}
 
-
-document.addEventListener('keydown' , (event) => {
-    // console.log(event);
+/**
+* Event listener for keydown events.
+* Updates the keyboard object based on the pressed key.
+* @param {KeyboardEvent} event - The keyboard event object.
+*/
+document.addEventListener('keydown', (event) => {
 
     if (event.keyCode == 38) {
         keyboard.UP = true;
@@ -77,8 +90,12 @@ document.addEventListener('keydown' , (event) => {
     }
 });
 
-document.addEventListener('keyup' , (event) => {
-    // console.log(event);
+/**
+* Event listener for keyup events.
+* Updates the keyboard object based on the pressed key.
+* @param {KeyboardEvent} event - The keyboard event object.
+*/
+document.addEventListener('keyup', (event) => {
 
     if (event.keyCode == 38) {
         keyboard.UP = false;
@@ -100,50 +117,49 @@ document.addEventListener('keyup' , (event) => {
     }
 });
 
-function addMobileBtn(){
+/**
+* implements the touch function to control in mobile view
+*/
+function addMobileBtn() {
 
-document.getElementById('btnLeft').addEventListener('touchstart', (event) => {
-    event.preventDefault();
-    keyboard.LEFT = true;
-});
+    document.getElementById('btnLeft').addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        keyboard.LEFT = true;
+    });
 
-document.getElementById('btnLeft').addEventListener('touchend', (event) => {
-    event.preventDefault();
-    keyboard.LEFT = false;
-});
+    document.getElementById('btnLeft').addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard.LEFT = false;
+    });
 
-document.getElementById('btnRight').addEventListener('touchstart', (event) => {
-    event.preventDefault();
-    keyboard.RIGHT = true;
-});
+    document.getElementById('btnRight').addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        keyboard.RIGHT = true;
+    });
 
-document.getElementById('btnRight').addEventListener('touchend', (event) => {
-    event.preventDefault();
-    keyboard.RIGHT = false;
-});
+    document.getElementById('btnRight').addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard.RIGHT = false;
+    });
 
-document.getElementById('btnJump').addEventListener('touchstart', (event) => {
-    event.preventDefault();
-    keyboard.UP = true;
-    // keyboard.RIGHT = true;
-});
+    document.getElementById('btnJump').addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        keyboard.UP = true;
+    });
 
-document.getElementById('btnJump').addEventListener('touchend', (event) => {
-    event.preventDefault();
-    keyboard.UP = false;
-    // keyboard.RIGHT = false;
-});
+    document.getElementById('btnJump').addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard.UP = false;
+    });
 
-document.getElementById('btnBottle').addEventListener('touchstart', (event) => {
-    event.preventDefault();
-    keyboard.B = true;
-});
+    document.getElementById('btnBottle').addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        keyboard.B = true;
+    });
 
-document.getElementById('btnBottle').addEventListener('touchend', (event) => {
-    event.preventDefault();
-    keyboard.B = false;
-});
-
-
+    document.getElementById('btnBottle').addEventListener('touchend', (event) => {
+        event.preventDefault();
+        keyboard.B = false;
+    });
 
 }

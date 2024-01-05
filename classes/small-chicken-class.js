@@ -1,3 +1,6 @@
+/**
+* Represents a smaller variant of the Chicken enemy.
+*/
 class SmallChicken extends Chicken {
 
     height = 40;
@@ -5,9 +8,11 @@ class SmallChicken extends Chicken {
     y = 385;
 
     IMAGES_WALKING = smallChickenImages.IMAGES_WALKING;
-
     IMAGES_DEAD = smallChickenImages.IMAGES_DEAD;
 
+    /**
+    * Initializes a small chicken instance.
+    */
     constructor() {
         super();
         this.loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
