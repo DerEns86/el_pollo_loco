@@ -26,6 +26,20 @@ function startGame() {
 }
 
 /**
+* restart the game.
+*/
+function restartGame() {
+    document.getElementById('lostScreen').classList.add('d-none');
+    document.getElementById('gameOverScreen').classList.add('d-none');
+    document.getElementById('startScreen').classList.add('d-none');
+
+    clearAllIntervals();
+    startGame();
+}
+
+
+
+/**
 * Toggles the mute state of all sounds in the game and updates the mute button image.
 */
 function toggleMuteAllSounds() {
@@ -47,13 +61,6 @@ function toggleMuteAllSounds() {
 function toggleSettings() {
     let controls = document.getElementById('controls');
     controls.classList.toggle('hidden');
-}
-
-/**
-* Reloads the current page to restart the game.
-*/
-function restartGame() {
-    location.reload();
 }
 
 /**

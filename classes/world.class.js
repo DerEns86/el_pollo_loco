@@ -240,7 +240,7 @@ class World {
      */
     checkCollisionWithBottle() {
         this.level.bottleOnGround.forEach((bottle, index) => {
-            if (this.character.isColliding(bottle)) {
+            if (this.character.isColliding(bottle) && this.character.bottlesToThrow < 5) {
                 this.playSound(this.level.bottleOnGround[index].sounds.bottle_collect);
                 this.statusBarBottle.percentage += 20;
                 this.statusBarBottle.setPercentage(this.statusBarBottle.percentage);
