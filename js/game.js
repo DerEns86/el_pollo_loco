@@ -26,7 +26,7 @@ function startGame() {
 }
 
 /**
-* restart the game.
+* hide overlay screens, clear the intervals and restart the game 
 */
 function restartGame() {
     document.getElementById('lostScreen').classList.add('d-none');

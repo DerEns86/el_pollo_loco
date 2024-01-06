@@ -15,7 +15,7 @@ class BottleOnGround extends DrawableObject {
     constructor() {
         super();
         this.loadImage('img/6_salsa_bottle/1_salsa_bottle_on_ground.png');
-        this.x = 200 + Math.random() * 1500;
+        this.x = 400 + Math.random() * 1700;
         this.y = 365;
 
         this.offset.top = 10;
