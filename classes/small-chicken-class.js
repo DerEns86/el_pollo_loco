@@ -1,29 +1,25 @@
+/**
+* Represents a smaller variant of the Chicken enemy.
+*/
 class SmallChicken extends Chicken {
 
-    height = 60;
-    width = 60;
-    y = 365;
+    height = 40;
+    width = 40;
+    y = 385;
 
-    IMAGES_WALKING = [
-        'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
-        'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',
-        'img/3_enemies_chicken/chicken_small/1_walk/3_w.png',
-    ];
+    IMAGES_WALKING = smallChickenImages.IMAGES_WALKING;
+    IMAGES_DEAD = smallChickenImages.IMAGES_DEAD;
 
-    IMAGES_DEAD = [
-        'img/3_enemies_chicken/chicken_small/2_dead/dead.png'
-    ];
-
+    /**
+    * Initializes a small chicken instance.
+    */
     constructor() {
         super();
         this.loadImage('img/3_enemies_chicken/chicken_small/1_walk/1_w.png');
         this.loadImages(this.IMAGES_WALKING);
         this.loadImages(this.IMAGES_DEAD);
-
-        this.x = 2000;
-
         this.animate();
-
+        this.offset.top = 5;
     }
 
 }

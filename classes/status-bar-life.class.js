@@ -1,18 +1,14 @@
+/**
+* Represents a status bar for life, indicating the life percentage.
+*/
 class StatusBarLife extends DrawableObject {
    
     percentage = 100;
+    IMAGES_HEALTH = statusbarHealthImages.IMAGES_HEALTH;
 
-
-
-    IMAGES_HEALTH = [
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-        'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
-    ];
-
+    /**
+    * Initializes the StatusBarLife instance.
+    */
     constructor() {
         super();
         this.loadImages(this.IMAGES_HEALTH);
@@ -23,13 +19,19 @@ class StatusBarLife extends DrawableObject {
         this.y = 10;
     }
 
+    /**
+    * Initializes the StatusBarLife instance.
+    */
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALTH[this.getPictureIndex()];
-        this.img = this.imageCache[path];
-        
+        this.img = this.imageCache[path];   
     }
 
+    /**
+    * Determines the index of the image in the array based on the life percentage.
+    * @returns {number} The index of the image in the IMAGES_HEALTH array.
+    */
     getPictureIndex(){
         if (this.percentage == 100){
             return 5;
@@ -42,10 +44,6 @@ class StatusBarLife extends DrawableObject {
         } else if (this.percentage > 20) {
             return 1;
         } else 
-            return 0;
-        
+            return 0;   
     }
-
-
-
 }

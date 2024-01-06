@@ -4,13 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./img/icons/favicon.png">
+
     <link rel="stylesheet" href="style.css">
     <title>El Pollo Loco</title>
 
-    <script src="classes/world.class.js"></script>
+    <script src="js/imageData.js"></script>
+
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/movable-object.class.js"></script>
-    <script src="classes/level.class.js"></script>
+
     <script src="classes/throwable-object.class.js"></script>
     <script src="classes/background-object.class.js"></script>
     <script src="classes/keyboard.class.js"></script>
@@ -28,24 +31,78 @@
 
     <script src="classes/endboss.class.js"></script>
     <script src="classes/small-chicken-class.js"></script>
+
+    <script src="classes/world.class.js"></script>
+    <script src="classes/level.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
 </head>
 
-<body onload="init()">
+<body>
 
     <h1>El Pollo Loco</h1>
-    <div class="gameContent">
-        <canvas id="canvas" width="720" height="480"></canvas>
-        <div class="mobileBtn flex">
-            <div class="btnLeft">
-                <img id='btnLeft' src="./img/icons/left.png">
-                <img id='btnRight' src="./img/icons/right.png">
+
+    <div class="turnDevice">
+        <p>Turn your Device</p>
+        <img src="./img/background/turnDevice.png" alt="">
+    </div>
+    <div class="main">
+
+        <img id="muteBtn" class="controlBtn" src="img/icons/icon_mute.png" onclick="toggleMuteAllSounds()">
+        <img id="settingsBtn" class="controlBtn" src="img/icons/icon_settings.png" onclick="toggleSettings()">
+
+        <div id="canvasDiv" class="canvasDiv d-none">
+            <canvas id="canvas" width="720" height="480"></canvas>
+            <div class="mobileBtn flex">
+                <div class="btnLeft">
+                    <img id='btnLeft' src="./img/icons/left.png">
+                    <img id='btnRight' src="./img/icons/right.png">
+                </div>
+                <div class="btnRight">
+                    <img id='btnJump' src="./img/icons/jump.png">
+                    <img id='btnBottle' src="./img/icons/bottle.png">
+                </div>
             </div>
-            <div class="btnRight">
-                <img id='btnJump' src="./img/icons/jump.png">
-                <img id='btnBottle' src="./img/icons/bottle.png">
+            <div id="lostScreen" class="d-none overlay">
+                <img src="img/9_intro_outro_screens/game_over/you lost.png">
+                <div class="wrapper">
+                    <div class="button" onclick="restartGame()">
+                        <span>Restart</span>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div id="startScreen" class=" overlay">
+
+            <img src="img/9_intro_outro_screens/start/startscreen_2.png">
+            <div class="wrapper">
+                <div class="startBtn button" onclick="startGame()">
+                    <span>Start Game</span>
+                </div>
+            </div>
+        </div>
+        <div id="gameOverScreen" class="d-none overlay">
+            <img src="img/9_intro_outro_screens/game_over/game over.png">
+            <div class="wrapper">
+                <div class="button" onclick="restartGame()">
+                    <span>Restart</span>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="controls" class="keyboardDescription hidden">
+            <div><img src="./img/icons/left.png"><img src="./img/icons/right.png">
+                <p>Move</p>
+            </div>
+            <div><img src="./img/icons/icon_up.png">
+                <p>Jump</p>
+            </div>
+            <div><img src="./img/icons/icon_b.png">
+                <p>Throw Bottle</p>
+            </div>
+
         </div>
     </div>
 </body>
